@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link       http://architectedfutures.net
+ * @since      5.2019.0805
  *
- * @package    Plugin_Name
+ * @package    AF_WP_Plugin
  */
 
 // If uninstall not called from WordPress, then exit.

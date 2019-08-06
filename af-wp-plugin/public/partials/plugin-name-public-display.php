@@ -5,11 +5,11 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link       http://architectedfutures.net
+ * @since      5.2019.0805
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/public/partials
+ * @package    AF_WP_Plugin
+ * @subpackage AF_WP_Plugin/public/partials
  */
 ?>
 

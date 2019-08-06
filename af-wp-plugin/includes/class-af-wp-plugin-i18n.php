@@ -6,11 +6,11 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @link       http://architectedfutures.net
+ * @since      5.2019.0805
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    AF_WP_Plugin
+ * @subpackage AF_WP_Plugin/includes
  */
 
 /**
@@ -19,23 +19,23 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @since      5.2019.0805
+ * @package    AF_WP_Plugin
+ * @subpackage AF_WP_Plugin/includes
+ * @author     JVS <joe.vansteen@architectedfutures.org>
  */
-class Plugin_Name_i18n {
+class AF_WP_Plugin_i18n {
 
 
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0
+	 * @since    5.2019.0805
 	 */
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'plugin-name',
+			'af-wp-plugin',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
