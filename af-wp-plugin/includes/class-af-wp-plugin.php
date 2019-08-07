@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://architectedfutures.net
+ * @link       https://architectedfutures.org
  * @since      5.2019.0805
  *
  * @package    AF_WP_Plugin
@@ -64,6 +64,21 @@ class AF_WP_Plugin {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
+	 * The standard git boilerplatee provided our operational order, which we are adopting
+	 * as WordPress current best practice. However, EATSv5 adapts the pattern with a
+	 * strategy adopted from past experience. 
+	 *
+	 * We can assume is an optimized system we will be involved in orchestrating responses
+	 * to client requests which will take one of three general forms. One form is very
+	 * heavy, one form very light, and the other varies between the two.
+	 *
+	 * Stage 1 is always to figure out where the current call for action (WP wants do do something,
+	 * it has a message to handle, and maybe we might be involved. What to do? Gear up, or snooze?
+	 *
+	 * Then, start the load and go stuff, but adjusted for only what we need to work with the
+	 * current request, unless some other process or plugin in WP calls us for help in what they're
+	 * doing. So, we always need our service support routines and framework. ..
+	 *
 	 * @since    5.2019.0805
 	 */
 	public function __construct() {
@@ -74,10 +89,31 @@ class AF_WP_Plugin {
 		}
 		$this->af_wp_plugin = 'af-wp-plugin';
 
+		$this->set_process_strategy();
+		
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+	}
+
+	/**
+	 * Define the processing strategy for the current invokation of the instance by WordPress
+	 * for the processing of the current request.
+	 *
+	 * Employs / Uses:
+	 *
+	 *	 AF_WP_Plugin_Xxxx class in order to ... set the domain and to register the hook with WordPress.
+	 *
+	 * @since    5.2019.0805
+	 * @access   private
+	 */
+	private function set_process_strategy() {
+
+		$af_wp_plugin_i18n = new AF_WP_Plugin_i18n();
+
+		$this->loader->add_action( 'plugins_loaded', $af_wp_plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
@@ -137,9 +173,9 @@ class AF_WP_Plugin {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new AF_WP_Plugin_i18n();
+		$af_wp_plugin_i18n = new AF_WP_Plugin_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'plugins_loaded', $af_wp_plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
@@ -152,10 +188,10 @@ class AF_WP_Plugin {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new AF_WP_Plugin_Admin( $this->get_af_wp_plugin(), $this->get_version() );
+		$af_wp_plugin_admin = new AF_WP_Plugin_Admin( $this->get_af_wp_plugin(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $af_wp_plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $af_wp_plugin_admin, 'enqueue_scripts' );
 
 	}
 
@@ -168,10 +204,10 @@ class AF_WP_Plugin {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new AF_WP_Plugin_Public( $this->get_af_wp_plugin(), $this->get_version() );
+		$af_wp_plugin_public = new AF_WP_Plugin_Public( $this->get_af_wp_plugin(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $af_wp_plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $af_wp_plugin_public, 'enqueue_scripts' );
 
 	}
 
@@ -216,3 +252,7 @@ class AF_WP_Plugin {
 	}
 
 }
+/**
+ * Close the module properly!
+ */
+ ?>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     Sample XML managed menu set.
+        MenuName is the MenuSet name
+        ActionCode defines the unique item identifier for a particular menu item in the
+            context of the menu set. It becomes the identifier for this menu item when
+            it becomes a selection on the painted into the HTML page.
+        Description defines the text to be wired into the HTML page. There should be an
+            option for the text to be presented in multiple languages.
+        Abstract defines the help text to be wired into the HTML page. There should be an
+            option for the text to be presented in multiple languages.
+        ItemTarget defines the target element if the menu item is selected.
+        ItemAction is the 'Action' to be triggered on the target item when the menu item
+            is selected.
+
+     Needs expansion to hook into scheme for menu access based on role-based security.
+     Needs adjustment for internationalization (foreign languages)
+     ===================================================================================
+<MenuSet>
+   <MenuName>
+	   </MenuName>
+	   <Description>
+	   </Description>
+		<MenuItem>
+			<ActionCode>
+			</ActionCode>
+			<Description>
+			</Description>
+			<ItemTarget>
+			</ItemTarget>
+			<ItemAction>
+			</ItemAction>
+		</MenuItem>
+	</MenuSet>
+-->
+<!--
+    ===================================================================================
+     Directory View Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>DirView</MenuName><Description>Directory View Menu</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>View Your Private Directory</Description><ItemTarget>procDirView</ItemTarget><ItemAction>DirViewPvt</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>View Shared Member Directory</Description><ItemTarget>procDirView</ItemTarget><ItemAction>DirViewShr</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0003</ActionCode><Description>View Shared Public Directory</Description><ItemTarget>procDirView</ItemTarget><ItemAction>DirViewPub</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0004</ActionCode><Description>View Admin Directory</Description><ItemTarget>procDirView</ItemTarget><ItemAction>DirViewAdm</ItemAction></MenuItem>
+</MenuSet>
+<!--
+    ===================================================================================
+     Ele Index Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>EleIndex</MenuName><Description>Element Index Menu</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>Element Index By Create Date</Description><ItemTarget>procEleIndex</ItemTarget><ItemAction>CreateIndex</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>Element Index By Update Date</Description><ItemTarget>procEleIndex</ItemTarget><ItemAction>EleIndexByModDt</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0003</ActionCode><Description>Element Index By Type</Description><ItemTarget>procEleIndex</ItemTarget><ItemAction>TypeIndex</ItemAction></MenuItem>
+</MenuSet>
+<!--
+    ===================================================================================
+     AIR Maintenance Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>AirMaint</MenuName><Description>Repository Maintenance</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>Add Item</Description><ItemTarget></ItemTarget><ItemAction></ItemAction></MenuItem>
+<!--
+//<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>Bulk Define</Description><ItemTarget></ItemTarget><ItemAction></ItemAction></MenuItem>
+-->
+<MenuItem><ActionCode>MenuItem0003</ActionCode><Description>Show Collection</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>Show</ItemAction>
+	<Abstract>
+	Show the list of items in the collection as a simple list.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0004</ActionCode><Description>Show Element Directory</Description><ItemTarget>dlgEleNdxMenu</ItemTarget><ItemAction>Encode</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0005</ActionCode><Description>Show Element Abstracts</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>ShowAbstr</ItemAction>
+	<Abstract>
+	Show a list of items of the identified type for selection of items. selected items will have their abstracts displayed.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0006</ActionCode><Description>Display Item</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>ShowItem</ItemAction>
+	<Abstract>
+	Show a list of items of the identified type for selection of items to be viewed.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0007</ActionCode><Description>Modify Item</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>Modify</ItemAction>
+	<Abstract>
+	Show a list of items of the identified type for selection of items to be modified.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0008</ActionCode><Description>Delete Item</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>DeleteItem</ItemAction>
+	<Abstract>
+	Show a list of items of the identified type for selection of items to be deleted.
+	</Abstract>
+	</MenuItem>
+</MenuSet>
+<!--
+    ===================================================================================
+     AIR Admin Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>AirAdmin</MenuName><Description>Repository Administration Menu</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>Initialize All Default Items</Description><ItemTarget></ItemTarget><ItemAction></ItemAction></MenuItem>
+<!--
+//<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>Initialize Type Defaults</Description><ItemTarget></ItemTarget><ItemAction></ItemAction></MenuItem>
+-->
+<MenuItem><ActionCode>MenuItem0003</ActionCode><Description>Display Item (Raw)</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>ShowRaw</ItemAction>
+	<Abstract>
+Show a list of items of the identified type for selection of items to be viewed. Item display will use the raw data format.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0004</ActionCode><Description>Modify Item (Raw)</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>ModifyRaw</ItemAction>
+	<Abstract>
+Show a list of items of the identified type for selection of items to be modified. Modification will use the raw data format.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0005</ActionCode><Description>Purge Element Type</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>PurgeType</ItemAction>
+	<Abstract>
+		Purge all items of the identified type. Items will be purged in batches. Items within each batch will be displayed before being purged.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0006</ActionCode><Description>Audit Element Items</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>AuditItem</ItemAction>
+	<Abstract>
+	Show a list of items of the identified type for selection of items to be audited.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0007</ActionCode><Description>Audit Element Type Group</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>AuditType</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0008</ActionCode><Description>Audit Element Repository</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>AuditAll</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0009</ActionCode><Description>Review Property Rules By Type Group</Description><ItemTarget>dlgPropertyReview</ItemTarget><ItemAction>PropertyReviewType</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0010</ActionCode><Description>Review All Property Rules</Description><ItemTarget>dlgPropertyReview</ItemTarget><ItemAction>PropertyReviewAll</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0012</ActionCode><Description>Show High Level Menu Set</Description><ItemTarget>AF_NAVIGATION_MENU</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0013</ActionCode><Description>Show Low Level Menu Item Selections</Description><ItemTarget>AF_MENUSET</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0011</ActionCode><Description>Show Dispatch Rules</Description><ItemTarget>AF_DISPATCH_RULES</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0014</ActionCode><Description>Show Dialog Workflow Rules</Description><ItemTarget>AF_WORKFLOW_RULES</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0015</ActionCode><Description>Show View Processor Map</Description><ItemTarget>AF_VIEW_PROCESSOR_MAP</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0016</ActionCode><Description>*** Show Property Rules By Type Group</Description><ItemTarget>dlgPropertyReview</ItemTarget><ItemAction>PropertyReviewType</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0017</ActionCode><Description>* Show Class Hierarchy</Description><ItemTarget>dlgClassMap</ItemTarget><ItemAction>Review</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0018</ActionCode><Description>*** Show Property Rule Alignment</Description><ItemTarget>dlgPropertyReview</ItemTarget><ItemAction>PropertyReviewAll</ItemAction>
+	<Abstract>
+		Shows property type items and their aligned property rules. Useful for determining which properties
+		have no defined rules, and which rules do not have a defined property.
+	</Abstract>
+	</MenuItem>
+<MenuItem><ActionCode>MenuItem0019</ActionCode><Description>Repository Element Adjustment</Description><ItemTarget>dlgEleList</ItemTarget><ItemAction>Encode</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0020</ActionCode><Description>Database Conversion</Description><ItemTarget>dlgDbCvtMenu</ItemTarget><ItemAction>Encode</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0020</ActionCode><Description>Show Database Statistics</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>GetDbStats</ItemAction></MenuItem>
+</MenuSet>
+<!--
+    ===================================================================================
+     DB Convert Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>DbConvert</MenuName><Description>Database Conversion Menu</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>Create Conversion Manifest</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>Create</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>Register Conversion Manifest</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>Register</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0003</ActionCode><Description>Show Conversion Manifest</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>ShowItem</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0004</ActionCode><Description>Convert Code Constants</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>CodeConvert</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0005</ActionCode><Description>Convert AIR Element Identifiers</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>IdConvert</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0006</ActionCode><Description>Convert Reference Tables</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>DbRefConvert</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0007</ActionCode><Description>Cleanse Obsolete References</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>CleanseDb</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0008</ActionCode><Description>Load Conversion Manifest</Description><ItemTarget>procEleAudit</ItemTarget><ItemAction>Load</ItemAction></MenuItem>
+</MenuSet>
+<!--
+    ===================================================================================
+     System Admin Menu Set
+     ===================================================================================
+-->
+<MenuSet><MenuName>SysAdmin</MenuName><Description>System Administration Menu</Description>
+<MenuItem><ActionCode>MenuItem0001</ActionCode><Description>Change Pass-phrase</Description><ItemTarget>dlgChangePswd</ItemTarget><ItemAction>Encode</ItemAction></MenuItem>
+<MenuItem><ActionCode>MenuItem0002</ActionCode><Description>Set Options</Description><ItemTarget>dlgProcOptions</ItemTarget><ItemAction>Encode</ItemAction></MenuItem>
+</MenuSet>
+</AF_configuration>

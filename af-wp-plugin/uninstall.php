@@ -19,7 +19,7 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://architectedfutures.net
+ * @link       https://architectedfutures.org
  * @since      5.2019.0805
  *
  * @package    AF_WP_Plugin
@@ -29,3 +29,43 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+<?php
+
+
+// Get access to global WordPress wpdb class
+global $wpdb;
+
+// Check if site is configured for network installation
+if ( is_multisite() ) {
+	if ( !empty( $_GET['networkwide'] ) ) {
+		$start_blog = $wpdb->blogid;
+
+		// Get blog list and cycle through all blogs under network
+		$blog_list = $wpdb->get_col( 'SELECT blog_id FROM ' . $wpdb->blogs );
+		foreach ( $blog_list as $blog ) {
+			switch_to_blog( $blog );
+
+			// Call function to delete bug table with prefix
+			af_bt_drop_table( $wpdb->get_blog_prefix() );
+		}
+		switch_to_blog( $start_blog );
+		return;
+	}	
+}
+
+af_bt_drop_table( $wpdb->prefix );
+
+function af_bt_drop_table( $prefix ) {
+	global $wpdb;
+	$wpdb->query( 'DROP TABLE ' . $prefix . 'af_bug_data' );
+}
+
+delete_option(AF_CORE_ID);
+
+$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}af_core_post_attachments");
+$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}wpqpa_post_attachments");
+
+/**
+ * Close the module properly!
+ */
+ ?>

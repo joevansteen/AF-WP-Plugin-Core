@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+@media print
+{
+	/**
+	 * @section layout
+	 * @css-for (not required sections)
+	 */
+	#header .widget-area,
+	#header img, #header form,
+	#nav, #subnav,
+	.breadcrumb,
+	#footer-widgets,
+	#footer .gototop,
+	#searchform, #s, #submit,
+	#sidebar, #wp-calendar,
+	#respond, #comments, #commentform, #commentform p,
+	.post-info .post-comments,
+	.post-info .post-edit-link,
+	#cachestats,
+	select, input, textarea, checkbox, dd, hr {
+		display: none !important;
+	}
+
+	/**
+	 * @section layout
+	 * @css-for (print basics)
+	 */
+	body {
+		width: 100%;
+		text-align: left;
+		margin: 0;
+		padding: 0;
+		font-family: Cambria, "Hoefler Text", Utopia, "Liberation Serif", "Nimbus Roman No9 L", Times, "Times New Roman", serif;
+		font-size: 12pt;
+		color: #000;
+		background: #fff url(none) !important;
+		background-image: none !important;
+	}
+
+	#header, #title-area, #title, #description, #content, #footer .creds {
+		width: auto !important;
+	}
+
+	#header #title {
+		font-size: 1.7em;
+	}
+
+	#header #description {
+		color: #666;
+		margin-left: 30px;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+		margin: .75em 0 .5em;
+		text-align: left;
+		page-break-after:avoid;
+	  page-break-inside:avoid;
+	}
+	
+	h1 {
+		text-align: center;
+		padding: 0 0 .5em;
+		border-bottom: 1px solid #ccc;
+	}
+
+	p {
+		margin: .5em;
+		font-stretch: expanded;
+	}
+	
+	blockquote, table, pre {
+	  page-break-inside:avoid;
+	}
+	ul, ol, dl {
+		page-break-before:avoid;
+	}
+
+	.post-info, .post-meta {
+		text-transform: none !important;
+	}
+
+	#content .post-info {
+		font-size: 0.7em !important;
+	}
+
+	#content {
+		page-break-before: avoid;
+		page-break-after: avoid;
+	}
+
+	#genesis-box {
+		border-top: 1px solid #ccc;
+		margin-top: 10px;
+		font-size: 0.85em;
+	}
+
+	#genesis-box img {
+		float: right;
+		clear: right;
+	}
+
+	#footer {
+		background: #fff !important;
+		border-top: 2px solid #ccc;
+		margin-top: 10px;
+		font-size: 0.8em;
+	}
+
+	#footer .creds {
+		float: left !important;
+		clear: left;
+	}
+	
+	/**
+	 * @section links
+	 * @css-for (optimize links for print)
+	 */
+
+	a, a:visited, a:hover, a:visited:hover {
+		color: #000;
+		background: transparent;
+		text-decoration: none;
+	}
+
+	/**
+	 * drop these unless needed for some special proint to expose the values
+	 * on th eprinter for diagnostics
+	
+	a[href]:after {
+		content:" <"attr(href)"> ";
+		background-color: inherit;
+		font-style: italic;
+		font-size: 0.85em;
+	} 
+	
+	*[name]:after {
+		content:" [#"attr(name)"]";
+		background-color: inherit;
+		font-style: italic;
+		font-size: .7em;
+	} 
+	
+	*[title]:after {
+		content:" ("attr(title)") ";
+		background-color:inherit;
+		font-style:italic;
+		font-size: .7em;
+	}
+	*/
+
+	/**
+	 * @section quotes
+	 * @css-for (advanced output of cite)
+	 */
+	*[cite]:after {
+		content: close-quote" (Source: "attr(cite)")";
+		font-size: .7em;
+	} 
+	
+	* {
+		quotes: "\201E" "\201C" "\201A" "\2018";
+	} 
+	
+	q:before, blockquote:before {
+		content: open-quote;
+	} 
+	
+	q:after, blockquote:after {
+		content: close-quote;
+	}
+	
+	blockquote, q, cite {
+		padding-left: .1em;
+	}
+	
+	acronym, abbr {
+		border: none;
+	}
+	
+	/**
+	 * @section Code
+	 * @css-for (not required sections)
+	 */
+	.code, pre {
+		font: .8em 'Courier New', Courier, Fixed;
+		padding-left: 1em;
+	}
+	
+	.code a[href]:after {
+		content: "";
+	}
+	
+	/**
+	 * @section layout
+	 * @css-for (image format)
+	 */
+	img {
+		padding: .5em;
+	}
+}

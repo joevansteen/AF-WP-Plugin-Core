@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     External XML directory of MIME type information
+        DataType is the repeating group defining a "MIME" type specification
+        
+        FileExt is the text file extension to be associated with the MIME type
+        MimeType is the standard text MIME type label
+        
+        Description is an optional text block providing comments or a description for the
+            variable or information defining its use.
+     ===================================================================================
+<DataTypes>
+   <DataType>
+			<FileExt>
+			</FileExt>
+			<MimeType>
+			</MimeType>
+			<Description>
+			</Description>
+		</DataType>
+</DataTypes>
+ -->
+<DataTypes>
+		<DataType><FileExt>ai</FileExt><MimeType>application/postscript</MimeType></DataType>
+		<DataType><FileExt>aif</FileExt><MimeType>audio/x-aiff</MimeType></DataType>
+		<DataType><FileExt>aifc</FileExt><MimeType>audio/x-aiff</MimeType></DataType>
+		<DataType><FileExt>aiff</FileExt><MimeType>audio/x-aiff</MimeType></DataType>
+		<DataType><FileExt>asc</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>au</FileExt><MimeType>audio/basic</MimeType></DataType>
+		<DataType><FileExt>avi</FileExt><MimeType>video/x-msvideo</MimeType></DataType>
+		<DataType><FileExt>bcpio</FileExt><MimeType>application/x-bcpio</MimeType></DataType>
+		<DataType><FileExt>bin</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>c</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>cc</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>ccad</FileExt><MimeType>application/clariscad</MimeType></DataType>
+		<DataType><FileExt>cdf</FileExt><MimeType>application/x-netcdf</MimeType></DataType>
+		<DataType><FileExt>class</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>cpio</FileExt><MimeType>application/x-cpio</MimeType></DataType>
+		<DataType><FileExt>cpt</FileExt><MimeType>application/mac-compactpro</MimeType></DataType>
+		<DataType><FileExt>csh</FileExt><MimeType>application/x-csh</MimeType></DataType>
+		<DataType><FileExt>css</FileExt><MimeType>text/css</MimeType></DataType>
+		<DataType><FileExt>csv</FileExt><MimeType>text/comma-separated-values</MimeType></DataType>
+		<DataType><FileExt>dcr</FileExt><MimeType>application/x-director</MimeType></DataType>
+		<DataType><FileExt>dir</FileExt><MimeType>application/x-director</MimeType></DataType>
+		<DataType><FileExt>dms</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>doc</FileExt><MimeType>application/msword</MimeType></DataType>
+		<DataType><FileExt>drw</FileExt><MimeType>application/drafting</MimeType></DataType>
+		<DataType><FileExt>dvi</FileExt><MimeType>application/x-dvi</MimeType></DataType>
+		<DataType><FileExt>dwg</FileExt><MimeType>application/acad</MimeType></DataType>
+		<DataType><FileExt>dxf</FileExt><MimeType>application/dxf</MimeType></DataType>
+		<DataType><FileExt>dxr</FileExt><MimeType>application/x-director</MimeType></DataType>
+		<DataType><FileExt>eps</FileExt><MimeType>application/postscript</MimeType></DataType>
+		<DataType><FileExt>etx</FileExt><MimeType>text/x-setext</MimeType></DataType>
+		<DataType><FileExt>exe</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>ez</FileExt><MimeType>application/andrew-inset</MimeType></DataType>
+		<DataType><FileExt>f</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>f90</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>fli</FileExt><MimeType>video/x-fli</MimeType></DataType>
+		<DataType><FileExt>gif</FileExt><MimeType>image/gif</MimeType></DataType>
+		<DataType><FileExt>gtar</FileExt><MimeType>application/x-gtar</MimeType></DataType>
+		<DataType><FileExt>gz</FileExt><MimeType>application/x-gzip</MimeType></DataType>
+		<DataType><FileExt>h</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>hdf</FileExt><MimeType>application/x-hdf</MimeType></DataType>
+		<DataType><FileExt>hh</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>hqx</FileExt><MimeType>application/mac-binhex40</MimeType></DataType>
+		<DataType><FileExt>htm</FileExt><MimeType>text/html</MimeType></DataType>
+		<DataType><FileExt>html</FileExt><MimeType>text/html</MimeType></DataType>
+		<DataType><FileExt>ice</FileExt><MimeType>x-conference/x-cooltalk</MimeType></DataType>
+		<DataType><FileExt>ief</FileExt><MimeType>image/ief</MimeType></DataType>
+		<DataType><FileExt>iges</FileExt><MimeType>model/iges</MimeType></DataType>
+		<DataType><FileExt>igs</FileExt><MimeType>model/iges</MimeType></DataType>
+		<DataType><FileExt>ips</FileExt><MimeType>application/x-ipscript</MimeType></DataType>
+		<DataType><FileExt>ipx</FileExt><MimeType>application/x-ipix</MimeType></DataType>
+		<DataType><FileExt>jpe</FileExt><MimeType>image/jpeg</MimeType></DataType>
+		<DataType><FileExt>jpeg</FileExt><MimeType>image/jpeg</MimeType></DataType>
+		<DataType><FileExt>jpg</FileExt><MimeType>image/jpeg</MimeType></DataType>
+		<DataType><FileExt>js</FileExt><MimeType>application/x-javascript</MimeType></DataType>
+ 		<DataType><FileExt>kar</FileExt><MimeType>audio/midi</MimeType></DataType>
+ 		<DataType><FileExt>latex</FileExt><MimeType>application/x-latex</MimeType></DataType>
+ 		<DataType><FileExt>lha</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>lsp</FileExt><MimeType>application/x-lisp</MimeType></DataType>
+		<DataType><FileExt>lzh</FileExt><MimeType>application/octet-stream</MimeType></DataType>
+		<DataType><FileExt>m</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>man</FileExt><MimeType>application/x-troff-man</MimeType></DataType>
+		<DataType><FileExt>me</FileExt><MimeType>application/x-troff-me</MimeType></DataType>
+		<DataType><FileExt>mesh</FileExt><MimeType>model/mesh</MimeType></DataType>
+		<DataType><FileExt>mid</FileExt><MimeType>audio/midi</MimeType></DataType>
+		<DataType><FileExt>midi</FileExt><MimeType>audio/midi</MimeType></DataType>
+		<DataType><FileExt>mif</FileExt><MimeType>application/vnd.mif</MimeType></DataType>
+		<DataType><FileExt>mime</FileExt><MimeType>www/mime</MimeType></DataType>
+		<DataType><FileExt>mov</FileExt><MimeType>video/quicktime</MimeType></DataType>
+		<DataType><FileExt>movie</FileExt><MimeType>video/x-sgi-movie</MimeType></DataType>
+		<DataType><FileExt>mp2</FileExt><MimeType>audio/mpeg</MimeType></DataType>
+		<DataType><FileExt>mp3</FileExt><MimeType>audio/mpeg</MimeType></DataType>
+		<DataType><FileExt>mpe</FileExt><MimeType>video/mpeg</MimeType></DataType>
+		<DataType><FileExt>mpeg</FileExt><MimeType>video/mpeg</MimeType></DataType>
+		<DataType><FileExt>mpg</FileExt><MimeType>video/mpeg</MimeType></DataType>
+		<DataType><FileExt>mpga</FileExt><MimeType>audio/mpeg</MimeType></DataType>
+		<DataType><FileExt>ms</FileExt><MimeType>application/x-troff-ms</MimeType></DataType>
+		<DataType><FileExt>msh</FileExt><MimeType>model/mesh</MimeType></DataType>
+		<DataType><FileExt>nc</FileExt><MimeType>application/x-netcdf</MimeType></DataType>
+		<DataType><FileExt>oda</FileExt><MimeType>application/oda</MimeType></DataType>
+		<DataType><FileExt>pbm</FileExt><MimeType>image/x-portable-bitmap</MimeType></DataType>
+		<DataType><FileExt>pdb</FileExt><MimeType>chemical/x-pdb</MimeType></DataType>
+		<DataType><FileExt>pdf</FileExt><MimeType>application/pdf</MimeType></DataType>
+		<DataType><FileExt>pgm</FileExt><MimeType>image/x-portable-graymap</MimeType></DataType>
+		<DataType><FileExt>pgn</FileExt><MimeType>application/x-chess-pgn</MimeType></DataType>
+		<DataType><FileExt>png</FileExt><MimeType>image/png</MimeType></DataType>
+		<DataType><FileExt>pnm</FileExt><MimeType>image/x-portable-anymap</MimeType></DataType>
+		<DataType><FileExt>pot</FileExt><MimeType>application/mspowerpoint</MimeType></DataType>
+		<DataType><FileExt>ppm</FileExt><MimeType>image/x-portable-pixmap</MimeType></DataType>
+		<DataType><FileExt>pps</FileExt><MimeType>application/mspowerpoint</MimeType></DataType>
+		<DataType><FileExt>ppt</FileExt><MimeType>application/mspowerpoint</MimeType></DataType>
+		<DataType><FileExt>ppz</FileExt><MimeType>application/mspowerpoint</MimeType></DataType>
+		<DataType><FileExt>pre</FileExt><MimeType>application/x-freelance</MimeType></DataType>
+		<DataType><FileExt>prt</FileExt><MimeType>application/pro_eng</MimeType></DataType>
+		<DataType><FileExt>ps</FileExt><MimeType>application/postscript</MimeType></DataType>
+		<DataType><FileExt>qt</FileExt><MimeType>video/quicktime</MimeType></DataType>
+		<DataType><FileExt>ra</FileExt><MimeType>audio/x-realaudio</MimeType></DataType>
+		<DataType><FileExt>ram</FileExt><MimeType>audio/x-pn-realaudio</MimeType></DataType>
+		<DataType><FileExt>ras</FileExt><MimeType>image/cmu-raster</MimeType></DataType>
+		<DataType><FileExt>rgb</FileExt><MimeType>image/x-rgb</MimeType></DataType>
+		<DataType><FileExt>rm</FileExt><MimeType>audio/x-pn-realaudio</MimeType></DataType>
+		<DataType><FileExt>roff</FileExt><MimeType>application/x-troff</MimeType></DataType>
+		<DataType><FileExt>rpm</FileExt><MimeType>audio/x-pn-realaudio-plugin</MimeType></DataType>
+		<DataType><FileExt>rtf</FileExt><MimeType>text/rtf</MimeType></DataType>
+		<DataType><FileExt>rtx</FileExt><MimeType>text/richtext</MimeType></DataType>
+		<DataType><FileExt>scm</FileExt><MimeType>application/x-lotusscreencam</MimeType></DataType>
+		<DataType><FileExt>set</FileExt><MimeType>application/set</MimeType></DataType>
+		<DataType><FileExt>sgm</FileExt><MimeType>text/sgml</MimeType></DataType>
+		<DataType><FileExt>sgml</FileExt><MimeType>text/sgml</MimeType></DataType>
+		<DataType><FileExt>sh</FileExt><MimeType>application/x-sh</MimeType></DataType>
+		<DataType><FileExt>shar</FileExt><MimeType>application/x-shar</MimeType></DataType>
+		<DataType><FileExt>silo</FileExt><MimeType>model/mesh</MimeType></DataType>
+		<DataType><FileExt>sit</FileExt><MimeType>application/x-stuffit</MimeType></DataType>
+		<DataType><FileExt>skd</FileExt><MimeType>application/x-koan</MimeType></DataType>
+		<DataType><FileExt>skm</FileExt><MimeType>application/x-koan</MimeType></DataType>
+		<DataType><FileExt>skp</FileExt><MimeType>application/x-koan</MimeType></DataType>
+		<DataType><FileExt>skt</FileExt><MimeType>application/x-koan</MimeType></DataType>
+		<DataType><FileExt>smi</FileExt><MimeType>application/smil</MimeType></DataType>
+		<DataType><FileExt>smil</FileExt><MimeType>application/smil</MimeType></DataType>
+		<DataType><FileExt>snd</FileExt><MimeType>audio/basic</MimeType></DataType>
+		<DataType><FileExt>sol</FileExt><MimeType>application/solids</MimeType></DataType>
+		<DataType><FileExt>spl</FileExt><MimeType>application/x-futuresplash</MimeType></DataType>
+		<DataType><FileExt>src</FileExt><MimeType>application/x-wais-source</MimeType></DataType>
+		<DataType><FileExt>step</FileExt><MimeType>application/STEP</MimeType></DataType>
+		<DataType><FileExt>stl</FileExt><MimeType>application/SLA</MimeType></DataType>
+		<DataType><FileExt>stp</FileExt><MimeType>application/STEP</MimeType></DataType>
+		<DataType><FileExt>sv4cpio</FileExt><MimeType>application/x-sv4cpio</MimeType></DataType>
+		<DataType><FileExt>sv4crc</FileExt><MimeType>application/x-sv4crc</MimeType></DataType>
+		<DataType><FileExt>swf</FileExt><MimeType>application/x-shockwave-flash</MimeType></DataType>
+		<DataType><FileExt>t</FileExt><MimeType>application/x-troff</MimeType></DataType>
+		<DataType><FileExt>tar</FileExt><MimeType>application/x-tar</MimeType></DataType>
+		<DataType><FileExt>tcl</FileExt><MimeType>application/x-tcl</MimeType></DataType>
+		<DataType><FileExt>tex</FileExt><MimeType>application/x-tex</MimeType></DataType>
+		<DataType><FileExt>texi</FileExt><MimeType>application/x-texinfo</MimeType></DataType>
+		<DataType><FileExt>texinfo</FileExt><MimeType>application/x-texinfo</MimeType></DataType>
+		<DataType><FileExt>tif</FileExt><MimeType>image/tiff</MimeType></DataType>
+		<DataType><FileExt>tiff</FileExt><MimeType>image/tiff</MimeType></DataType>
+		<DataType><FileExt>tr</FileExt><MimeType>application/x-troff</MimeType></DataType>
+		<DataType><FileExt>tsi</FileExt><MimeType>audio/TSP-audio</MimeType></DataType>
+		<DataType><FileExt>tsp</FileExt><MimeType>application/dsptype</MimeType></DataType>
+		<DataType><FileExt>tsv</FileExt><MimeType>text/tab-separated-values</MimeType></DataType>
+		<DataType><FileExt>txt</FileExt><MimeType>text/plain</MimeType></DataType>
+		<DataType><FileExt>unv</FileExt><MimeType>application/i-deas</MimeType></DataType>
+		<DataType><FileExt>ustar</FileExt><MimeType>application/x-ustar</MimeType></DataType>
+		<DataType><FileExt>vcd</FileExt><MimeType>application/x-cdlink</MimeType></DataType>
+		<DataType><FileExt>vda</FileExt><MimeType>application/vda</MimeType></DataType>
+		<DataType><FileExt>viv</FileExt><MimeType>video/vnd.vivo</MimeType></DataType>
+		<DataType><FileExt>vivo</FileExt><MimeType>video/vnd.vivo</MimeType></DataType>
+		<DataType><FileExt>vrml</FileExt><MimeType>model/vrml</MimeType></DataType>
+		<DataType><FileExt>wav</FileExt><MimeType>audio/x-wav</MimeType></DataType>
+		<DataType><FileExt>wrl</FileExt><MimeType>model/vrml</MimeType></DataType>
+		<DataType><FileExt>xbm</FileExt><MimeType>image/x-xbitmap</MimeType></DataType>
+		<DataType><FileExt>xlc</FileExt><MimeType>application/vnd.ms-excel</MimeType></DataType>
+		<DataType><FileExt>xll</FileExt><MimeType>application/vnd.ms-excel</MimeType></DataType>
+		<DataType><FileExt>xlm</FileExt><MimeType>application/vnd.ms-excel</MimeType></DataType>
+		<DataType><FileExt>xls</FileExt><MimeType>application/vnd.ms-excel</MimeType></DataType>
+		<DataType><FileExt>xlw</FileExt><MimeType>application/vnd.ms-excel</MimeType></DataType>
+		<DataType><FileExt>xml</FileExt><MimeType>text/xml</MimeType></DataType>
+		<DataType><FileExt>xpm</FileExt><MimeType>image/x-xpixmap</MimeType></DataType>
+		<DataType><FileExt>xwd</FileExt><MimeType>image/x-xwindowdump</MimeType></DataType>
+		<DataType><FileExt>xyz</FileExt><MimeType>chemical/x-pdb</MimeType></DataType>
+		<DataType><FileExt>zip</FileExt><MimeType>application/zip</MimeType></DataType>
+</DataTypes>
+</AF_configuration>

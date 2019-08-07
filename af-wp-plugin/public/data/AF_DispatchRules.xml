@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     XML Dispatch rules translation table
+
+        The entire rule set in enclosed in a <RuleSet> tag pair.
+        Each dispatch rule is identified by a <DispatchRule> entry.
+
+        MsgMode defines the processing mode for which the rule is applicable
+        ModuleName is the name of the program module used to process messages dispatched
+            according to the rule.
+        Object defines the target object identified in the message for which the rule
+            is applicable
+        Action defines the message action for which the rule is applicable.
+        Version defines the version of the message for which the rule is applicable.
+
+		 * Actual table data is created and searched in the following array priority order
+		 *  -> mode -> object -> action -> version ==> target
+		 *
+		 * When placing new entries in the list, it is advisable to try to maintain the
+		 * table search sequence. This makes it easier to diagnose errors. However, for
+		 * operational control, the table is sorted after it is loaded. The sort sequence
+		 * is ordered to place unique names prior to entries using an '*' entries. '*'
+		 * entries are wildcard values and are always the last to be defined within the
+		 * branch of the table. This means that:
+		 *
+		 *  ALL specific MODE entries are evaluated BEFORE any MODE entries using MODE=*
+		 *
+		 * Then, within each block of mode entires (specific and '*',
+		 *  ALL specific OBJECT entries are evaluated BEFORE any OBJECT entries using OBJECT=*
+		 *
+		 * and so on ...
+		 *
+		 *  Mode=Specific1 Object=Specific1 Action=Specific1 Version=Specific1
+		 *  Mode=Specific1 Object=Specific1 Action=Specific1 Version=Specific2
+		 *  Mode=Specific1 Object=Specific1 Action=Specific1 Version=*
+		 *  Mode=Specific1 Object=Specific1 Action=Specific2 Version=Specific1
+		 *  Mode=Specific1 Object=Specific1 Action=Specific2 Version=Specific2
+		 *  Mode=Specific1 Object=Specific1 Action=Specific2 Version=*
+		 *  Mode=Specific1 Object=Specific1 Action=*         Version=Specific1
+		 *  Mode=Specific1 Object=Specific1 Action=*         Version=Specific2
+		 *  Mode=Specific1 Object=Specific1 Action=*         Version=*
+		 *  Mode=Specific1 Object=Specific2 Action=Specific1 Version=Specific1
+		 *  Mode=Specific1 Object=Specific2 Action=Specific1 Version=Specific2
+		 *  Mode=Specific1 Object=Specific2 Action=Specific1 Version=*
+		 *  Mode=Specific1 Object=Specific2 Action=Specific2 Version=Specific1
+		 *  Mode=Specific1 Object=Specific2 Action=Specific2 Version=Specific2
+		 *  Mode=Specific1 Object=Specific2 Action=Specific2 Version=*
+		 *  Mode=Specific1 Object=Specific2 Action=*         Version=Specific1
+		 *  Mode=Specific1 Object=Specific2 Action=*         Version=Specific2
+		 *  Mode=Specific1 Object=Specific2 Action=*         Version=*
+		 *  Mode=Specific1 Object=*         Action=Specific1 Version=Specific1
+		 *  Mode=Specific1 Object=*         Action=Specific1 Version=Specific2
+		 *  Mode=Specific1 Object=*         Action=Specific1 Version=*
+		 *  Mode=Specific1 Object=*         Action=Specific2 Version=Specific1
+		 *  Mode=Specific1 Object=*         Action=Specific2 Version=Specific2
+		 *  Mode=Specific1 Object=*         Action=Specific2 Version=*
+		 *  Mode=Specific1 Object=*         Action=*         Version=Specific1
+		 *  Mode=Specific1 Object=*         Action=*         Version=Specific2
+		 *  Mode=Specific1 Object=*         Action=*         Version=*
+		 *
+		 *  etc.
+		 *
+
+     Needs expansion for role-based security.
+     ===================================================================================
+<RuleSet>
+   <DispatchRule>
+			<MsgMode>			</MsgMode>
+			<ModuleName>			</ModuleName>
+			<Object>			</Object>
+			<Action>			</Action>
+			<Version>			</Version>
+		</DispatchRule>
+	</RuleSet>
+-->
+<!--
+    ===================================================================================
+     Dispatch Rule Set
+     ===================================================================================
+-->
+<RuleSet>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dispatchRules.php</ModuleName><Object>AF_DISPATCH_RULES</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_navigationMenu.php</ModuleName><Object>AF_NAVIGATION_MENU</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuset.php</ModuleName><Object>AF_MENUSET</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_workflowRules.php</ModuleName><Object>AF_WORKFLOW_RULES</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>C_AF_ViewMgrViewProcessorMap.php</ModuleName><Object>AF_VIEW_PROCESSOR_MAP</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>C_AF_ViewMgrClassMap.php</ModuleName><Object>dlgClassMap</Object><Action>Review</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgAirAdmin</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgAirAdmin</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgAirMenu</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgAirMenu</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgPropertyReview.php</ModuleName><Object>dlgPropertyReview</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_propertyReview.php</ModuleName><Object>dlgPropertyReview</Object><Action>PropertyReviewItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_propertyReview.php</ModuleName><Object>dlgPropertyReview</Object><Action>PropertyReviewType</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_propertyReview.php</ModuleName><Object>dlgPropertyReview</Object><Action>PropertyReviewAll</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgAssocMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgAssocMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgAssocRuleMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgAssocRuleMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgAssocTypeMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgAssocTypeMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_userSecurity.php</ModuleName><Object>dlgChangePswd</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgContact</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgContent</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgCoordMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgCoordMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgCoordRuleMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgCoordRuleMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgCoordTypeMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgCoordTypeMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgDbCvtMenu</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgDbCvtMenu</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_dialogdecode.php</ModuleName><Object>dlgDirView</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgDirView</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgDirViewMenu</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgDirViewMenu</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_eleXref.php</ModuleName><Object>dlgEleXref</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgEleClassMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleClassMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgEleList.php</ModuleName><Object>dlgEleIndex</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_eleIndex.php</ModuleName><Object>dlgEleIndex</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgEleList.php</ModuleName><Object>dlgEleList</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>Show</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>ShowItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>ShowRaw</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>Modify</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>ModifyRaw</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>PurgeType</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>DeleteItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>AuditItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>CodeConvert</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>DirViewRaw</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>Add</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleList</Object><Action>Load</Action><Version>*</Version></DispatchRule>
+	 	<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgEleList.php</ModuleName><Object>dlgEleListContext</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleListContext</Object><Action>Show</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgEleMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgModelTaxMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgModelRuleMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgModelMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgEleNdxMenu</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgEleNdxMenu</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgEleTypeMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgEleTypeMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgFileEdit</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgFileEditReview</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgFilePrint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgFileView</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgGenRegCode</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgHome</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_userSecurity.php</ModuleName><Object>dlgLogin</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgManifestReview</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgMembers</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgMenuSelect</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_userSecurity.php</ModuleName><Object>dlgNewUser</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgOptionsAdmin.php</ModuleName><Object>dlgProcOptions</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_procOptions.php</ModuleName><Object>dlgProcOptions</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgPropMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgPropMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgPropRuleMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgPropRuleMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgPropTypeMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgPropTypeMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMaint.php</ModuleName><Object>dlgRelClassMaint</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>dlgRelClassMaint</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_userSecurity.php</ModuleName><Object>dlgResetPswd</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgServices</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgSiteMap</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgMenu01.php</ModuleName><Object>dlgSysAdmin</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_menuDlg01.php</ModuleName><Object>dlgSysAdmin</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procAssocMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procAssocRuleMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procAssocTypeMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgUserAdmin.php</ModuleName><Object>procChangePswd</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>procChangePswd</Object><Action>Modify</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procCoordMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procCoordTypeMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procCoordRuleMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleClassMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procRelClassMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_dir_mgmt.php</ModuleName><Object>procDirView</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_audit.php</ModuleName><Object>procEleAudit</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_index.php</ModuleName><Object>procEleIndex</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>Add</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>Show</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>ShowItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>View</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>ShowRaw</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>ModifyRaw</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>DelItem</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>PurgeType</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>Modify</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleMaint</Object><Action>PurgeItems</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procEleTypeMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_dir_mgmt.php</ModuleName><Object>procFileMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>procLogin</Object><Action>Login</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgUserAdmin.php</ModuleName><Object>procLogin</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>procLogout</Object><Action>Logout</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgUserAdmin.php</ModuleName><Object>procLogout</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>procNewUser</Object><Action>Create</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgUserAdmin.php</ModuleName><Object>procNewUser</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procPropMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procPropRuleMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_ele_maint.php</ModuleName><Object>procPropTypeMaint</Object><Action>*</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>procResetPswd</Object><Action>Reset</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_dlgUserAdmin.php</ModuleName><Object>procResetPswd</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_reqfilter_svcHttp.php</ModuleName><Object>svcHTTP</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_dialogdecode.php</ModuleName><Object>*</Object><Action>Decode</Action><Version>*</Version></DispatchRule>
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_viewMgr_dialogencode.php</ModuleName><Object>*</Object><Action>Encode</Action><Version>*</Version></DispatchRule>
+<!--
+    ===================================================================================
+     Final 'Catch All' Entry
+     ===================================================================================
+-->
+		<DispatchRule><MsgMode>*</MsgMode><ModuleName>af_procmod_sys_admin.php</ModuleName><Object>*</Object><Action>*</Action><Version>*</Version></DispatchRule>
+</RuleSet>
+</AF_configuration>

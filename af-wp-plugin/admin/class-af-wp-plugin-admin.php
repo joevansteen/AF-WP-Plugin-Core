@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       http://architectedfutures.net
+ * @link       https://architectedfutures.org
  * @since      5.2019.0805
  *
  * @package    AF_WP_Plugin
@@ -101,3 +101,7 @@ class AF_WP_Plugin_Admin {
 	}
 
 }
+/**
+ * Close the module properly!
+ */
+ ?>

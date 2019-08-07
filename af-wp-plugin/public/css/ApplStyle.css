@@ -1,0 +1,64 @@
+BODY
+{
+    FONT-SIZE: 10pt;
+    MARGIN: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    BACKGROUND-COLOR: cornsilk
+}
+DIV
+{
+    BORDER-RIGHT: groove;
+    BORDER-TOP: groove;
+    Z-INDEX: 8;
+    FLOAT: left;
+    VISIBILITY: inherit;
+    OVERFLOW: auto;
+    BORDER-LEFT: groove;
+    BORDER-BOTTOM: groove;
+    POSITION: absolute
+}
+HR
+{
+    FONT-SIZE: 1px;
+    COLOR: blue
+}
+H1
+{
+    FONT-SIZE: 20pt;
+    TEXT-TRANSFORM: uppercase;
+    COLOR: #4e4e4e
+}
+H2
+{
+    FONT-SIZE: 18pt;
+    COLOR: #4e4e4e;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial, Verdana;
+    FONT-VARIANT: small-caps
+}
+H3
+{
+    FONT-SIZE: 14pt;
+    COLOR: #4e4e4e;
+    FONT-FAMILY: Arial, Verdana
+}
+.fnButton
+{
+    BORDER-RIGHT: moccasin thin ridge;
+    BORDER-TOP: moccasin thin;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: moccasin thin;
+    WIDTH: 75px;
+    COLOR: black;
+    BORDER-BOTTOM: moccasin thin outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: wheat;
+    TEXT-ALIGN: center
+}
+TABLE
+{
+    FONT-SIZE: 10pt;
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial
+}

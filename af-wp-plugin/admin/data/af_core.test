@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Provides for the af_core module.
+ */
+ 
+class AfCoreTestCase extends DrupalWebTestCase {
+  public function setUp() {
+    parent::setUp('af_core');
+  }
+  
+  public function getInfo {
+    return array(
+      'name' = 'AF Core module block functionality',
+      'description' = 'Test blocks in the AF Core module',
+      'group' = 'AF Core',
+    );
+  }
+  
+  public function testBlockInfo() {
+    $info = module_invoke('af_core', 'block_info');
+    
+    $this->assertEqual(1, count($info),
+      t('Module defines a block.'));
+      
+    $this->assertTrue(isset($info['list_modules']),
+      t('Module list exists.');
+  }
+  
+  public function testBlockView() {
+  }
+}

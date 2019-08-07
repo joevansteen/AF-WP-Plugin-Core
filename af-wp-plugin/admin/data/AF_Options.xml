@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     External XML managed context information
+        Option is the repeating group defining a single "option variable"
+
+        Name is the name of the variable as known to the application code
+        Type is the data type of the variable
+        Value is the value assignment for the variable. It must be valid in the
+            scope of the variable type.
+        Description is the description for the variable and will be displayed on the
+            options maintence panel.
+
+     Expansion: needs to be expanded for language internationalization.
+     ===================================================================================
+<Options>
+   <Option>
+			<Name>
+			</Name>
+			<Type>
+			</Type>
+			<Value>
+			</Value><Description>
+			<Description>
+			</Description>
+		</Option>
+</Options>
+ -->
+<Options>
+		<Option><Name>TraceFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show General Processing Trace</Description></Option>
+		<Option><Name>ErrDebugFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show Error Diagnostics</Description></Option>
+		<Option><Name>TraceHttpFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show HTTP Processing Trace</Description></Option>
+		<Option><Name>TraceDispatchFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show Message Dispatch Trace</Description></Option>
+		<Option><Name>TraceMsgDataFlowFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show Message Data Flow Trace</Description></Option>
+		<Option><Name>EleInsertDebugFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show New Element Insert Debug Data</Description></Option>
+		<Option><Name>DebugCoreFcnsFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show Core Function Debugging Trace</Description></Option>
+		<Option><Name>TraceDatabaseFcnsFlag</Name><Type>boolean</Type><Value>false</Value><Description>Show Database Processing Trace</Description></Option>
+		<Option><Name>UseKeyedLists</Name><Type>boolean</Type><Value>false</Value><Description>Show Element Keys on Collection Lists</Description></Option>
+		<Option><Name>UseNumberLists</Name><Type>boolean</Type><Value>true</Value><Description>Show Numbered Collection Lists</Description></Option>
+		<Option><Name>UsePrototypeFeatures</Name><Type>boolean</Type><Value>true</Value><Description>Use Prototype Features</Description></Option>
+		<Option><Name>UseJavaScriptDialogs</Name><Type>boolean</Type><Value>true</Value><Description>Use JavaScript Dialogs</Description></Option>
+		<Option><Name>UseAjaxFramework</Name><Type>boolean</Type><Value>false</Value><Description>Use AJAX Framework</Description></Option>
+		<Option><Name>UsePopupWindows</Name><Type>boolean</Type><Value>true</Value><Description>Use Popup Reference Windows</Description></Option>
+		<Option><Name>UseCssFormatting</Name><Type>boolean</Type><Value>true</Value><Description>Use CSS Formatting</Description></Option>
+		<Option><Name>CssStylesheet</Name><Type>text</Type><Value>af_stdstyle.css</Value><Description>CSS Stylesheet</Description></Option>
+		<Option><Name>PgHdrMenuLevels</Name><Type>integer</Type><Value>2</Value><Description>Max. Page Header Menu Levels</Description></Option>
+		<Option><Name>DfltMaxFieldSize</Name><Type>integer</Type><Value>255</Value><Description>Default maximum display width for a text field</Description></Option>
+		<Option><Name>DfltFieldWidth</Name><Type>integer</Type><Value>72</Value><Description>Default field width for text fields</Description></Option>
+		<Option><Name>DfltTextBoxRows</Name><Type>integer</Type><Value>5</Value><Description>Default number of rows for a Textbox field</Description></Option>
+		<Option><Name>DfltMaxPswdSize</Name><Type>integer</Type><Value>32</Value><Description>Default maximum size of a pass-phrase</Description></Option>
+		<Option><Name>DfltPswdFieldWidth</Name><Type>integer</Type><Value>72</Value><Description>Default display size of a pass-phrase field</Description></Option>
+</Options>
+</AF_configuration>

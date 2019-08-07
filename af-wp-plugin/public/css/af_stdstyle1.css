@@ -1,0 +1,46 @@
+/* af_stdstyle.css ... 
+ * Copyright (c) 2005 Architected Futures, LLC
+ *
+ * V1.0 2005-OCT-13 JVS Begin test of new standalone PHP environment scripts
+ *
+ * GENERAL COMMENTS
+ */   
+
+H1
+{
+    TEXT-ALIGN: center
+}
+A
+{
+    COLOR: #000000
+}
+A:hover
+{
+    BACKGROUND-COLOR: #f2f2ff;
+    TEXT-DECORATION: none
+}
+BODY
+{
+    FONT-FAMILY: Arial, Helvitica, sans-serif; font-size: 13px
+}
+HR
+{
+    color: #3333cc; 
+    width = 95%; 
+    text-align=center
+}
+LI, TD
+{
+    FONT-FAMILY: Arial, Helvitica, sans-serif; font-size: 13px
+}
+/* Make definition lists looks better */
+DL
+{
+   FONT-FAMILY:	Arial, Helvitica, sans-serif; font-size: 13px;
+    display: compact;
+}
+DD
+{
+    FONT-FAMILY: Arial, Helvitica, sans-serif; font-size: 13px
+    margin-left: 4em;
+}

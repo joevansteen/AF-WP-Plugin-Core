@@ -1,0 +1,631 @@
+/* af_stdstyle.css ...
+ * Copyright (c) 2005 Architected Futures, LLC
+ *
+ * V1.0 2005-OCT-13 JVS Begin test of new standalone PHP environment scripts
+ *
+ * GENERAL COMMENTS
+ */
+
+/***************************************************************************
+										D I V I S I O N S
+
+ * The following describes the use of the ID attribute for DIV segments.
+ * These are elements where the DIV occurs once, and only once, in the
+ * span of the wseb page. The following DIV ID= assignments are made:
+ *
+ *			ID				Usage / Description
+ *
+ *		AirPage		-	provides the super-container for the web page. The
+ *							application data display is entirely enclosed as a whole
+ *							in AirPage. AirPage then divides the diplay material into
+ *							three divisions: PageHead, PageBody and PageFoot.
+ *		PageHead		- 	provides a standard top-of-page segment for consistent
+ *							visual heading to all web pages for the application.
+ *							Default PageHead is a title graphic for the web site and
+ *							also encompasses the page top menu navigation information.
+ *		PageBody		- 	provides the main body of the application display. This
+ *							segment may take on different forms depending on the needs
+ *							of the type of information being displayed. The default
+ *							structure of the PageBody consists of three sub-division:
+ *							PageDiag, PageContent and PageSysInfo.
+ * 	PageFoot		-	provides a standard bottom-of-page segment for consistent
+ *							encapsulation of the application content and for display
+ *							of page bottom navigation, credits, copyright data, etc.
+ *		PageDiag		-	defines a diagnostic section that preceeds the detail
+ *							application data. Typically this area is used to highlight
+ *							issues with the application processing. This would include
+ *							highlighting fields on input panels which may be in error
+ *							and in need of correction.
+ *		PageContent	-	defines the actual application data space. Is further sub-
+ *							divided into a main panel definition consisting of:
+ *							PanelTitle, PanelHeader, PanelBody, PanelFooter.
+ *		PageSysInfo	-	defines a second diagnostic area usually used for debug
+ *							and trace data. Not typically used in a production setting.
+ *
+ ***************************************************************************/
+ * The following describes the use of the CLASS attribute for application of
+ * style preferences to elements. Class is used where elements may appear
+ * more than one time, and a consistent style of presentation is desired
+ * across the series; and for situations where some similarity of style
+ * is desired because of common purpose or usage, such as header data.
+ *
+ *			CLASS			Usage / Description
+ *
+ *		Header		-	Used on PageHead
+ *		Footer		-	Used on PageFoot
+ *		Diagnostics	-	Used on PageDiag, PageSysInfo
+
+/***************************************************************************
+ * DIV = AirPage
+ * This is the overall encapsulating DIV for the entire web page.
+ *******/
+div#AirPage
+	{
+   font-size:				11pt;
+   margin:					2px;
+   color:					black;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   background-color:		ivory
+	height:					100%;
+	width:              	100%;
+	}
+
+/***************************************************************************
+ * DIV = PageHead
+ * This is the header for the overall web page.
+ *******/
+div#PageHead
+	{
+/*	background:				#DEDEDE; */
+	height:             	auto;
+	width:              	100%;
+   margin:					0px;
+	clear:					left;
+	}
+
+/***************************************************************************
+ * DIV = PageBody
+ * This is the main body of the web page. It occupies the center of the
+ * page from top to bottom, below the PageHead and above the PageFoot.
+   FLOAT:					left;
+   VISIBILITY:				inherit;
+   OVERFLOW:				visible;
+   POSITION:				absolute;
+   text-align:				center;
+ *******/
+div#PageBody
+	{
+	background:				transparent;
+	height:             	auto;
+	width:              	100%;
+   margin:					0px;
+/*	border:					medium inset #BBBBBB; */
+	padding-left:   		0px; /* 5 */
+	padding-right:    	0px; /* 5 */
+	padding-top:      	0px; /* 5 */
+	padding-bottom:   	0px; /* 8 */
+	clear:					left;
+	}
+
+/***************************************************************************
+ * DIV = PageFoot
+ * This is the footer for the overall web page.
+ *******/
+div#PageFoot
+	{
+/*	background:				#DEDEDE; */
+	height:             	auto;
+	width:              	100%;
+   margin:					0px;
+	padding-left:   		4px; /* 5 */
+	padding-right:    	4px; /* 5 */
+	padding-top:      	4px; /* 5 */
+	padding-bottom:   	4px; /* 8 */
+	}
+
+/***************************************************************************
+ * DIV = PageDiag
+ * This is the page diagnostics area.
+ *******/
+div#PageDiag
+	{
+/*	background:				#DEDEDE; */
+	height:             	auto;
+	width:              	100%;
+	border:					thin dashed #BBBBBB;
+   z-index:					1;
+   margin:					4px;
+	padding-left:   		4px; /* 5 */
+	padding-right:    	4px; /* 5 */
+	padding-top:      	4px; /* 5 */
+	padding-bottom:   	6px; /* 8 */
+	clear:					both;
+	}
+
+
+/***************************************************************************
+ * DIV = PageContent
+ * This is the main apploication data display area.
+ *
+ * border styles: solid, dotted, dashed, double, inset, outset, ridge, groove
+ * margin: whitespace around the element
+ * padding: whitespace inside
+ *******/
+div#PageContent
+	{
+	background:       	transparent;
+	height:             	auto;
+	width:              	100%;
+	border:					medium double #BBBBBB;
+   z-index:					2;
+   margin:					4px;
+	padding-left:   		0px; /* 5 */
+	padding-right:    	0px; /* 5 */
+	padding-top:      	0px; /* 5 */
+	padding-bottom:   	0px; /* 8 */
+	clear:					both;
+	}
+
+/***************************************************************************
+ * DIV = PageSysInfo
+ * This is the system information display area for the page. This area is
+ * typically used to display diagnostic and trace information when trace
+ * options are set for the application.
+ *******/
+div#PageSysInfo
+	{
+/*	background:				#DEDEDE; */
+	height:             	auto;
+	width:              	100%;
+	border:					thin dotted #BBBBBB;
+   z-index:					3;
+   margin:					4px;
+	padding-left:   		4px; /* 5 */
+	padding-right:    	4px; /* 5 */
+	padding-top:      	4px; /* 5 */
+	padding-bottom:   	6px; /* 8 */
+	clear:					both;
+	}
+/*********************************************
+ *   A R C H I T E C T E D   F U T U R E S   *
+ *         C E N T E R   P A N E L           *
+ *                                           *
+ * (x) JVS pass 2                            *
+ *********************************************/
+
+div.PanelTitle {
+	text-align:				center;
+	color:					maroon;
+	background:				#DEDEDE;
+/*	background:       	transparent; */
+	border-bottom:			2px solid maroon;
+	padding-right:			4px;
+	padding-left:			4px;
+	padding-top:      	4px;
+	padding-bottom:   	4px;
+	font-size:   			18pt;
+	font-weight:   		bold;
+	overflow:         	hidden;
+	width:            	100%;
+}
+
+div.PanelHeader {
+	text-align:				center;
+/*	color:					#336699; */
+	background:       	transparent;
+	padding-right:			4px;
+	padding-left:			4px;
+	padding-top:      	4px;
+	padding-bottom:   	4px;
+	overflow:         	hidden;
+	width:            	100%;
+}
+
+div.PanelBody {
+	text-align:				center;
+	color:					black;
+	background:       	transparent;
+/*	border-top:				1px solid #336699; */
+	padding-right:			4px;
+	padding-left:			4px;
+	padding-top:      	4px;
+	padding-bottom:  		4px;
+	overflow:         	hidden;
+	height:             	auto;
+	width:            	100%;
+}
+
+div.PanelFooter {
+	text-align:				center;
+	color:					maroon;
+	background:       	transparent;
+	border-top:				1px solid maroon;
+	padding-right:			4px;
+	padding-left:			4px;
+	padding-top:      	4px;
+	padding-bottom:   	4px;
+	overflow:         	hidden;
+	width:            	100%;
+}
+
+/* A single center item bounding box */
+
+div.PanelItem {
+      border-width:     medium  medium  medium  medium;
+      border-style:     inset   inset   inset   inset;
+      border-color:     #BBBBBB #BBBBBB #BBBBBB #BBBBBB;
+	margin-top:		8px;
+	margin-botom:	8px;
+	margin-left:	4px;
+	margin-right:	4px;
+}
+
+div.ItemTitle {
+	color:					maroon;
+	text-align:				center;
+	background:				#DEDEDE;
+/*	background:				#336699; */
+	font-size:   	125%;
+	font-weight:   	bold;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	4px;
+	padding-bottom:   4px;
+	width:   		100%;
+	clear:   		both;
+}
+
+span.ItemSubtitle {
+	color:					maroon;
+	text-align:				center;
+	background:				#DEDEDE;
+/*	background:				#336699; */
+	font-size:   			100%;
+	font-weight:   		bold;
+	padding-left:   		4px;
+	padding-right:   		4px;
+	padding-top:   		0px;
+	padding-bottom:   	0px;
+	width:   				100%;
+	clear:   				both;
+}
+
+.LinkPrompt {
+	font-weight:   		bold;
+	font-style:   			italic;
+}
+
+span.CatchPhrase {
+	color:					maroon;
+	text-align:				center;
+	font-size:   			85%;
+	font-style:   			italic;
+	padding-left:   		4px;
+	padding-right:   		4px;
+	padding-top:   		0px;
+	padding-bottom:   	0px;
+	width:   				100%;
+	clear:   				both;
+}
+
+span.ItemTitleAnnotation {
+	color:					maroon;
+	text-align:				left;
+	background:				#DEDEDE;
+/*	background:				#336699; */
+	font-size:   			85%;
+	font-weight:   		bold;
+	padding-left:   		4px;
+	padding-right:   		4px;
+	padding-top:   		0px;
+	padding-bottom:   	0px;
+	width:   				100%;
+	clear:   				both;
+}
+
+div.ItemHeader {
+/*	color:		#336699; */
+	background:       	transparent;
+	text-align:				center;
+	font-size:   	85%;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	2px;
+	padding-bottom:   4px;
+/*	border-bottom:	1px solid #336699; */
+	width:   		100%;
+	clear:   		left;
+}
+
+.itemheader a,
+.itemheader a:link {
+/*	background:				#336699; */
+	background:       	transparent;
+	text-decoration:		none;
+}
+
+.itemheader a:visited {
+	text-decoration:	none;
+}
+
+.itemheader a:hover {
+	text-decoration:	underline;
+}
+
+.itemheader a:active {
+	text-decoration:	none;
+}
+
+div.ItemBody {
+	text-align:				center;
+	width:   				100%;
+	clear:   				left;
+}
+
+div.ItemFooter {
+	text-align:				center;
+	width:   				100%;
+	clear:   				both;
+}
+
+/***************************************************************************
+ * Std Element = BODY
+ *******/
+body
+	{
+	}
+
+/***************************************************************************
+ * Std Element = FORM
+ * Prevent forms from generating extraneous padding or magins.
+ *******/
+form
+	{
+	margin:					0px 0px 0px 0px;
+	padding-bottom:  		0px;
+	padding-left:   		0px;
+	padding-right:   		0px;
+	padding-top:   		0px;
+	}
+/*
+DIV
+{
+} */
+hr
+{
+    font-size: 1px;
+    color: blue;
+    width: 95%;
+    text-align: center;
+}
+h1
+{
+    font-size: 20pt;
+/*  text-transform: uppercase; */
+    font-variant: small-caps;
+    text-align: center;
+    color: #4e4e4e;
+}
+h2
+{
+    font-size: 18pt;
+    color: #4e4e4e;
+    font-style: italic;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+    font-variant: small-caps;
+}
+h3
+{
+    font-size: 14pt;
+    color: #4e4e4e;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+}
+.fnButton
+{
+    border-top: 			medium solid moccasin;
+    border-right: 		medium solid moccasin;
+    border-bottom: 		medium solid moccasin;
+    border-left: 			medium solid moccasin;
+    font-size: 8pt;
+    width: 75px;
+    color: black;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+    background-color: wheat;
+    text-align: center;
+}
+table
+{
+    font-size: 10pt;
+    color: black;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+}
+.TBLHEAD
+{
+   font-size: 				12pt;
+   color: 					black;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+  font-variant: 			small-caps;
+   text-align: 			center;
+	border-bottom:			thin ridge moccasin;
+}
+thead
+{
+   font-size: 12pt;
+   color: black;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+  font-variant: small-caps;
+   text-align: center
+	border-bottom:			thin ridge moccasin;
+}
+
+a:link
+{
+    color: 		blue;
+}
+a:active
+{
+    color: 		black;
+}
+a:visited
+{
+    color: 		green;
+}
+a:hover
+{
+ /*  background-color: #f2f2ff; */
+    text-decoration: none;
+}
+
+li
+{
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+    font-size:			13px;
+    text-align:		left;
+}
+li, td
+{
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+    font-size:			13px;
+    margin-left:		4px;
+    margin-right:		8px;
+}
+/* Make definition lists looks better */
+dl
+{
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   font-size: 13px;
+   display: compact;
+}
+dt
+{
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   font-size:				13px;
+	font-weight:   		bold;
+   margin-left:			4em;
+   text-align:				left;
+}
+dd
+{
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+    font-size:				13px
+    margin-left:			4em;
+}
+.menu
+	{
+   font-size:				12pt;
+   text-align:				center;
+   color:					maroon;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   background-color:		#DEDFDE;
+	}
+.currentMenu
+	{
+   font-size:				12pt;
+   text-align:				center;
+   color:					blue;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   background-color:		#DEDFDE;
+	}
+.breadCrumbs
+	{
+   font-size:				12pt;
+   text-align:				left;
+   color:					maroon;
+   font-family:			Arial, Verdana, Helvitica, sans-serif;
+   background-color:		#DEDFDE;
+	margin-left:			3px;
+	margin-top:				0px;
+	margin-bottom:			5px;
+	margin-right:			3px;
+	}
+table.menu
+	{
+	cellpadding:			0;
+	cellspacing:			0;
+	border:					0;
+   background-color: 	transparent;
+   table-layout:			fixed;
+	}
+td.menu
+	{
+   font-size:				11pt;
+   font-weight:			bold;
+   text-align:				center;
+   border-right:			thin ridge moccasin;
+   border-top:				medium ridge moccasin;
+   border-left:			medium ridge moccasin;
+   border-bottom:			thin none moccasin;
+	margin-top:				0px;
+	margin-left:			1px;
+	margin-bottom:			0px;
+	margin-right:			1px;
+	padding-left:			5px;
+	padding-right:			5px;
+	}
+table.HELPTEXT, table.DIAGNOSTICS
+	{
+	margin-top:				10px;
+	padding-bottom:  		2px;
+	padding-left:   		2px;
+	padding-right:   		2px;
+	padding-top:   		6px;
+	cellpadding:			4;
+	cellspacing:			4;
+   background-color: 	transparent;
+	}
+table.HELPTEXT
+	{
+   border-right:			thin ridge blue;
+   border-top:				medium ridge blue;
+   border-left:			medium ridge blue;
+   border-bottom:			thin ridge blue;
+   background-color: 	transparent;
+	}
+table.DIAGNOSTICS
+	{
+   border-right:			thin ridge #F06000;
+   border-top:				medium ridge #F06000;
+   border-left:			medium ridge #F06000;
+   border-bottom:			thin ridge #F06000;
+   background-color: 	transparent;
+	}
+
+/****************
+ * Class Styles *
+ ****************/
+.TabGroupHdr
+	{
+   font-size:				11pt;
+   font-weight:			bold;
+	}
+.RefLinkData
+	{
+/*   font-size:				11pt; */
+   font-weight:			bold;
+	}
+.ErrorMsg
+	{
+	color:            #FF0000;
+   font-weight:		bold;
+	}
+.WarnMsg
+	{
+	color:            #F06000;
+	}
+.InfoMsg
+	{
+	color:            blue;
+	}
+.SuccessMsg
+	{
+	color:            #509000;
+	}
+
+.MsgIdent
+	{
+   text-align:			right;
+	}
+.MsgText
+	{
+   text-align:			center;
+	}

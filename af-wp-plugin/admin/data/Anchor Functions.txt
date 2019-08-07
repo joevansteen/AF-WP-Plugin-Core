@@ -1,0 +1,69 @@
+
+(3616):  function & getFileContent($file)
+(3581):  function & getMenuNavArray()
+(3467):  function & getRefElement($eleIdent)
+(406):   function abort($errText)
+(1131):  function adjustAirEleRelationship($relFrom, $relType, $relTo, $increment)   // element document
+(648):   function createAirDocument($docType,    // element type UUID
+(735):   function createAirElementDoc($eleType, $eleName = NULL, $eleAuthor = NULL,
+(692):   function createAirMessageDoc($messageType = AIR_EleType_ArchMessage) // message type
+(674):   function createAirSessionDoc($sessionType = AIR_EleType_WebSession) // session type
+(2603):  function create_UUID()
+(897):   function currElementExists($eleId)
+(480):   function debug()
+(496):   function debugCoreFcns()
+(488):   function debugDatabaseAccess()
+(859):   function dequeueMessage()
+(472):   function eleInsertDebug()
+(841):   function enqueueMessage($messageID)
+(1575):  function extractDbAirDocument($docId, $docType, &$db_row)
+(3567):  function getActionUrlBase()
+(3650):  function getBoolEvaluation($value)
+(2912):  function getCompositionByEleType($eleType, $maxItems = 0)
+(3439):  function getDialogAction($maintOper)
+(2757):  function getDialogFromProcModContext($context)
+(3369):  function getDlgGroupFromDialogContext($dlgContext)
+(623):   function getDlgVar($varName)
+(3320):  function getDynamicLoadClass($dynamLoadModule)
+(2220):  function getEleTypeList($eleType,
+(2699):  function getProcModFromDialogContext($context)
+(2815):  function getProcModFromEleType($eleType)
+(3503):  function getRefName($eleIdent, $getShortName = false)
+(3223):  function getRuleArrayBySubject($subjectEle, $count, $start=0)
+(3597):  function getStdVar($varName)
+(456):   function getSuppressErrorMsgs()
+(548):   function getTimestamp()
+(504):   function getTraceData()
+(2144):  function get_allElementsAdminArray($maxItems = 0, $keyPrefix=NULL,
+(2504):  function get_allElementsArray($maxItems = 0,
+(2282):  function get_allElementsByType($eleType,
+(2470):  function get_eleArrayByType($eleType, $count, $start=0)
+(184):   function initialize()
+(1763):  function initializeRepository()
+(2025):  function initializeRepositoryElement($eleUUID, $eleName, $eleType)
+(952):   function insertAirElement($eleDoc)   // element document
+(1700):  function instantiateAirDocument($docType)
+(2065):  function isCoreElementType($eleType)
+(711):   function isCurrentMessage($key)
+(2108):  function isInfrastructureElement($eleType)
+(876):   function msgQueueIsEmpty()
+(3554):  function prepTextForSql($dataString)
+(1343):  function purgeAirElement($eleIdent)   // element document
+(1366):  function purgeAirElementSet($eleArray)   // element document
+(3631):  function putFileContent($file, $fileContent)
+(512):   function putTraceData($lineNo, $errFile, $traceData, $convert=false)
+(1240):  function replaceAirElement($eleDoc)   // element document
+(356):   function serviceRequest()
+(3412):  function setDialogAction($maintOper)
+(578):   function setDialogDiagnostic($diagItem, $diagText, $diagLvl, $diagType = 'Text')
+(602):   function setDlgVar($varName, $varValue)
+(612):   function setDlgVarByRef($varName, &$varValue)
+(3606):  function setStdVar($varName, $varValue)
+(448):   function setSuppressErrMsgs($value)
+(368):   function terminate()
+(416):   function trace()
+(432):   function traceDispatch()
+(424):   function traceHttp()
+(440):   function traceMsgDataFlow()
+(464):   function usePrototypeFeatures()
+(3678):  function whereAmI()

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures,LLC; March 19,2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     XML Workflow Rules for use by the default infrastructure controller
+
+        The entire controller workflow rule set is enclosed in a <Workflow> tag pair.
+        Each dispatch rule is identified by a <Processor><MsgMode>*</MsgMode> entry.
+
+        MsgMode defines the processing mode for which the rule is applicable
+        Object defines the target object identified in the message for which the rule
+            is applicable
+        Action defines the message action for which the rule is applicable.
+        MsgObject defines the message object in the generated result message which will be
+            target to handle the request
+        MsgAction defines the message action for which the rule is applicable.
+        Version defines the version of the message for which the rule is applicable.
+
+ 		 * *******************************************
+		 * Caution ... read before changing table data
+		 * *******************************************
+		 *
+		 * Actual table data is created and searched in the following array priority order
+		 *  -> mode -> object -> action -> version ==> target
+		 *
+		 * When placing new entries in the list,the search order must find unique names
+		 * before encountering '*' entries. '*' entries are wildcard values and must always
+		 * be the last to be defined within the branch of the table.
+
+     Needs expansion for role-based security.
+     ===================================================================================
+<Workflow>
+   <Processor>
+			<MsgMode>			</MsgMode>
+			<ModuleName>			</ModuleName>
+			<Object>			</Object>
+			<Action>			</Action>
+			<Version>			</Version>
+		</Processor>
+	</Workflow>
+-->
+<!--
+    ===================================================================================
+     Dispatch Rule Set
+     ===================================================================================
+-->
+<Workflow>
+	<Processor><MsgMode>*</MsgMode><Object>dlgAirAdmin</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgPropertyReview</Object><Type>Dialog</Type><Module>dlg_PropertyReview</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgAirMenu</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgBack</Object><Type>Service</Type><Module>dlg_Help</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgChangePswd</Object><Type>Dialog</Type><Module>dlg_ChangePswd</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procChangePswd</Object><Type>ProcMod</Type><Module>dlg_ChangePswd</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgContact</Object><Type>Dialog</Type><Module>dlg_Contact</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgContent</Object><Type>Dialog</Type><Module>dlg_Content</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgDbCvtMenu</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgDirView</Object><Type>Dialog</Type><Module>dlg_DirView</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgDirViewMenu</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgEleXref</Object><Type>ProcMod</Type><Module>dlg_EleAudit</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgEleList</Object><Type>ProcMod</Type><Module>dlg_EleList</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgEleMaint</Object><Type>ProcMod</Type><Module>dlg_EleMaint</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgEleNdxMenu</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileCreate</Object><Type>Dialog</Type><Module>dlg_FileCreate</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procFileMaint</Object><Type>ProcMod</Type><Module>af_fileDelete</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileEdit</Object><Type>Dialog</Type><Module>dlg_FileEdit</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procFileEdit1b</Object><Type>ProcMod</Type><Module>af_fileedit1b</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileEditReview</Object><Type>Dialog</Type><Module>dlg_FileEditReview</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileUpload</Object><Type>Dialog</Type><Module>dlg_FileUpload</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileUpload2</Object><Type>Dialog</Type><Module>af_upload2</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgFileView</Object><Type>Dialog</Type><Module>dlg_FileView</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgHelp</Object><Type>Dialog</Type><Module>dlg_Help</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgHome</Object><Type>Dialog</Type><Module>dlg_Home</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgLogin</Object><Type>Dialog</Type><Module>dlg_Login</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procLogin</Object><Type>ProcMod</Type><Module>dlg_Login</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procLogout</Object><Type>ProcMod</Type><Module>af_logout</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgGenRegCode</Object><Type>Content</Type><Module>dlg_GenRegCode</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgManifestReview</Object><Type>Dialog</Type><Module>dlg_ManifestReview</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgEleIndex</Object><Type>Dialog</Type><Module>dlg_EleIndex</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgMembers</Object><Type>Dialog</Type><Module>dlg_Members</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgMenuSelect</Object><Type>MenuSet</Type><Module>af_MenuSelect</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgNewUser</Object><Type>Dialog</Type><Module>dlg_NewUser</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procNewUser</Object><Type>ProcMod</Type><Module>dlg_NewUser</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgNewUser2</Object><Type>Dialog</Type><Module>af_newuser2</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgProcOptions</Object><Type>ProcMod</Type><Module>dlg_ProcOptions</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgResetPswd</Object><Type>Dialog</Type><Module>dlg_ResetPswd</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>procResetPswd</Object><Type>ProcMod</Type><Module>dlg_ResetPswd</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgServices</Object><Type>Dialog</Type><Module>dlg_Services</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgSiteMap</Object><Type>Dialog</Type><Module>dlg_SiteMap</Module></Processor>
+<!--
+	<Processor><MsgMode>*</MsgMode><Object>dlgSiteMenu</Object><Type>Dialog</Type><Module>af_menu</Module></Processor>
+-->
+	<Processor><MsgMode>*</MsgMode><Object>dlgSqlExec1</Object><Type>Dialog</Type><Module>af_sqlexec1</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgSqlExec2</Object><Type>Dialog</Type><Module>af_sqlexec2</Module></Processor>
+	<Processor><MsgMode>*</MsgMode><Object>dlgSysAdmin</Object><Type>MenuSet</Type><Module>dlg_MenuDlg01</Module></Processor>
+</Workflow>
+</AF_configuration>

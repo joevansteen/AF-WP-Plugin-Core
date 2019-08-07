@@ -1,0 +1,12 @@
+;$Id$
+
+name = AF Core
+description = Defines the Architected Futures "core" Drupal extension facility for the support of the AF community of practice and of the AF EATS framework.
+package = AF COP
+core = 7.x
+files[] = af_core.module
+files[] = af_core.test
+
+dependencies[] = token
+dependencies[] = freelinking
+;php = 5.2

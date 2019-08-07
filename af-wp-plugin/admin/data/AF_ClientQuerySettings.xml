@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     External XML control settings to query clients regarding their capabilities
+        Query is the repeating group defining a single "query variable"
+        
+        Name is the name of the variable as known to the application code
+        Type is the query type of the variable. It defines the manner in which the client setting
+            is to be determined.
+        InitValue is the initialization value for the setting. In most cases it defaults
+            a setting or capability to false, or not available.
+        DialogValue is the 'available' value assignment for the variable. It is typically set as
+            a result of discovery that a particular feature required to support a capability is
+            available on the lcient.
+        SecureXmit is the control value that specifies whether or not the variable data needs to
+            use a secure HTTP communication.
+        Description is the description for the variable and will be displayed on the
+            options maintence panel.
+            
+     Expansion: needs to be expanded for language internationalization.
+     ===================================================================================
+<Settings>
+   <Query>
+			<Name>			</Name>
+			<Type>			</Type>
+			<InitValue>			</InitValue>
+			<DialogValue>			</DialogValue>
+			<SecureXmit>			</SecureXmit>
+			<Description>			</Description>
+		</Query>
+</Settings>
+ -->
+<Options>
+		<Query><Name>dlgClientHasCookies</Name><Type>cookie</Type><InitValue>false</InitValue><DialogValue>true</DialogValue><SecureXmit>false</SecureXmit><Description>Check for client-side cookie support</Description></Query>
+		<Query><Name>dlgHasSecureLink</Name><Type>cookie</Type><InitValue>false</InitValue><DialogValue>true</DialogValue><SecureXmit>true</SecureXmit><Description>Check for secure transport protocol</Description></Query>
+		<Query><Name>dlgClientHasJavaScript</Name><Type>post</Type><InitValue>false</InitValue><DialogValue>false</DialogValue><SecureXmit>false</SecureXmit><Description>Check for client-side JavaScript</Description></Query>
+</Options>
+</AF_configuration>

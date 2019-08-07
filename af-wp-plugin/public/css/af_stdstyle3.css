@@ -1,0 +1,2864 @@
+/* AFBaseTheme.css ... Adapted from whitebluegrey.cc 
+
+   GENERAL COMMENTS
+
+   Default style for Tiki 1.2 this is a short-version CSS template if you want to FULLY customize
+   every aspect of Tiki adapt the subsilver CSS file, but normally this is the file you want to
+   adapt to produce a new theme.
+
+   Good luck!
+
+   Primary characteristics of theme:
+
+   Color scheme:
+      #DEDFDE = Background color for top margin, also used as background for side-bar boxes.
+		    Used with DARK (BLACK) for lettering.
+      #10186B = Background color for header margin on boxes.
+		    Used with LIGHT (WHITE) for lettering.
+
+   Modifications from base theme:
+     1) Body background color from white to ivory (#FFFFF0) as the master control color for 
+        background, then use "transparent" color for DIV layers to show through the background
+        color scheme. This allows use of the main "body" color as a primary theme color and
+        modification happens from a master control point.
+     2) Font family specification for main fonts applied at the BODY level and inherited into 
+        the DIV sections, similar to the color scheme. 
+     3) Modified all font size specifications to use percentage measurement. This allows for
+        adjustment by the user in terms of their browser setting.
+*/
+
+/*********************************************************
+ *      S T A N D A R D   H T M L   D O C U M E N T      *
+ *     D E F A U L T   C H A R A C T E R I S T I C S     *
+ *                                                       *
+ * (x) JVS pass 1                                        *
+ *                                                       *
+ *********************************************************/
+
+body {	
+	color:			black;
+	background:			#FFFFF0;
+ 	font-family:		Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size:			85%;
+	margin-top:			0px;
+	margin-left:		0px;
+	margin-bottom:		0px;
+	margin-right:		0px;
+}
+
+/* Non-linking titles (three levels) */
+h1 {
+	color:          	maroon;
+	background:		transparent;
+	font-weight:    	bold;
+	font-size:      	200%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+      text-transform:	uppercase;
+}
+h2 {
+	color:          	maroon;
+	background:		transparent;
+	font-weight:    	bold;
+	font-size:      	175%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-variant:	small-caps;
+}
+h3 {
+	color:          	maroon;
+	background:		transparent;
+	font-weight:    	bold;
+	font-size:      	150%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-variant:	small-caps;
+}
+
+/* Prevent forms from generating unwanted padding or margins */
+form {
+	margin:    		0px 0px 0px 0px;
+	padding-bottom:   0px;
+	padding-left:   	0px;
+	padding-right:   	0px;
+	padding-top:   	0px;
+}
+/* General form elements */
+input, textarea, select {
+	color:    		black;
+	background:		white;
+	font:   		normal 85% Verdana, Arial, Helvetica, sans-serif;
+}
+input {
+	text-indent: 	2px;
+}
+textarea {
+	text-indent: 	2px;
+	width:		99%;		/* Expand all text editors to max size */
+
+}
+select {
+	text-indent: 	2px;
+}
+
+input.button {
+	color:   		white;
+	font-size:   	85%;
+	font-weight:   	bold;
+	background: 	cyan;  
+	padding-left:   	2px;
+	padding-right:   	5px;
+	text-align:   	center;
+	vertical-align:   middle;
+	width:            100%;
+	clear:		both; 
+}
+
+/*
+ * Note color changes are marked but commented out on the next elements.
+ * These are the general characteristics for link fields. Color changes,
+ * if desired, should be applied at the individual component level where the
+ * base color and background colors are known. Global changes at this level
+ * can easily generate strange combinations and unreadable presentations that
+ * obscure rather than high-light.
+ */
+
+a, a:visited, a.link, a.link:visited, :link, :link:visited {
+	text-decoration:	none;
+}
+
+a:visited:hover, a:hover, a.link:visited:hover, a.link:hover, :link:visited:hover, :link:hover {
+	text-decoration:	underline;
+}
+
+a.link:active, a:active, :link:active {
+	text-decoration:	none;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+hr {
+	color:		#336699;
+	background:       transparent;
+	border:		1px outset #336699;
+}
+
+/* Warning background/color */
+span.warn {
+	color:		red;
+	background:		#DEDEDE;
+	font-weight:   	bold;
+}
+span.on-option {
+	color:			#009000;        /* Green */
+	background:			transparent;
+}
+span.off-option {
+	color:			#224466;        /* Dark bluish grey */
+	background:			transparent;
+}
+
+/* Code fragments */
+pre, code {
+    font: normal 85% courier, Fixed;
+}
+
+pre {
+    white-space: pre;
+}
+
+/* No borders for images */
+img {
+    border: none;
+}
+
+/* Make definition lists looks better */
+dt {
+    display: compact;
+}
+dd {
+    margin-left: 4em;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+/*********************************************
+ *       G E N E R A L   L A Y O U T         *
+ * (x) JVS pass 1                            *
+ *********************************************/
+
+/* GENERAL LAYOUT EXPLANATION
+ *
+ * The tiki application is enclosed as a whole in tiki-main tiki-main contains three divs: tiki-top,
+ * tiki-mid and tiki-bot that will be used for the header, application and footer.
+ *
+ * tiki-mid contains a 3-column table, the columns are called (ids) leftcolumn, centercolumn and right column
+ * Finally centercolumn contains tiki-center where the main area of the application is displayed.
+ *
+ */
+
+/* This div encloses the whole Tiki application */
+
+DIV#tiki-main {
+	background:         transparent;
+      color:		  black;
+ 	font-size:          85%;
+	height:             100%;
+	width:              100%;
+
+	margin-top:         0px;
+	margin-bottom:      0px;
+	margin-right:       0px;
+	margin-left:        0px;
+}
+
+/* This is the header */
+DIV#tiki-top {
+	background:		  #DEDEDE;
+	color:              black;
+	width:              100%;
+ 	font-size:          85%;
+	padding-right:      2px 2px 2px 2px;
+}
+
+DIV#tiki-top a {
+	text-decoration:    none;
+}
+
+/* This is the middle */
+
+DIV#tiki-mid {
+	background:         transparent;
+	height:             auto;
+	width:              100%;
+	padding-bottom:     0px;
+}
+
+/* And this is the footer */
+
+DIV#tiki-bot {
+	background:        #DEDEDE;
+	color:             black;
+	width:             100%;
+	margin-top:        0px;
+	padding-top:       10px;
+	padding-bottom:    15px;
+}
+
+/*
+ * affooter1 is our own construction created in the tiki-bot_bar.tpl
+ * template which is placed in the template theme override area for
+ * this theme. It makes selected adjustments to the default template
+ * to adjust dive placement of the copyright text.
+ */
+
+div#affooter1 {
+	color:		maroon; 
+	background:         transparent;
+	font-size:		85%;
+	text-decoration:	none;
+}
+
+div#leftcolumn * input,
+div#rightcolumn * input {
+    color: #00E000;
+    background: transparent;
+    border: 1px inset #00E000;
+}
+
+/* The three columns */
+TD#leftcolumn {
+	padding-left:      2px;
+	padding-right:     2px;
+	vertical-align:    top;
+	background:        transparent;
+	width:             180px;
+}
+TD#rightcolumn {
+	padding-left:      2px;
+	padding-right:     2px;
+	vertical-align:    top;
+	background:        transparent;
+	width:             180px;
+}
+TD#centercolumn {
+	padding-left:      2px;
+	padding-right:     2px;
+	vertical-align:    top;
+	background:        transparent;
+	width:             100%;
+}
+/* And this is what lies inside the centercolumn */
+
+DIV#tiki-center {
+	margin-left:      2px;
+	margin-right:     4px;
+	margin-top:       4px;
+	margin-bottom:    8px;
+	padding-left:     0px; /* 5 */
+	padding-right:    0px; /* 5 */
+	padding-top:      0px; /* 5 */
+	padding-bottom:   0px; /* 8 */
+	border:   		medium outset #BBBBBB;
+	color:		black;
+      background:		transparent;
+	width:		100%;
+	clear:		both;
+}
+
+div#debugconsole {
+	position:       	 absolute;
+	color:          	 #336699;
+	background:		 wheat;
+	top:            	 20px;
+	left:           	 20px;
+	right:          	 310px;
+	height:         	 auto;
+	width:          	 auto;
+	z-index:        	 1;
+	padding:        	 5px;
+	border:         	 medium ridge sienna;
+	font-size:      	 85%;
+}
+
+/*********************************************
+ *   A R C H I T E C T E D   F U T U R E S   *
+ *         C E N T E R   P A N E L           *
+ *                                           *
+ * (x) JVS pass 2                            *
+ *********************************************/
+
+div.jvsmainpaneltitle {
+	color:		maroon;
+	background:       #DEDEDE;
+	border-bottom:	2px solid maroon;
+	padding-right:	4px;
+	padding-left:	4px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	overflow:         hidden;
+	width:            100%;
+}
+
+div.jvsmainpanelheader {
+	color:		#336699;
+	background:       transparent;
+	padding-right:	4px;
+	padding-left:	4px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	overflow:         hidden;
+	width:            100%;
+}
+
+div.jvsmainpanelbody {
+	color:		black;
+	background:       transparent;
+	border-top:		1px solid #336699;
+	padding-right:	4px;
+	padding-left:	4px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	overflow:         hidden;
+	width:            100%;
+}
+
+div.jvsmainpanelfooter {
+	color:		maroon;
+	background:       #DEDEDE;
+	border-top:		1px solid maroon;
+	padding-right:	4px;
+	padding-left:	4px;
+	padding-top:      4px;
+	padding-bottom:   4px;
+	overflow:         hidden;
+	width:            100%;
+}
+
+/* A single center item bounding box */
+
+div.jvscenteritem {
+      border-width:     medium  medium  medium  medium;
+      border-style:     inset   inset   inset   inset;
+      border-color:     #BBBBBB #BBBBBB #BBBBBB #BBBBBB;
+	margin-top:		8px;
+	margin-botom:	8px;
+	margin-left:	4px;
+	margin-right:	4px;
+}
+
+.jvscenteritemheader {
+	color:		#336699;
+	background:       white;
+	font-size:   	85%;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	2px;
+	padding-bottom:   4px;
+	border-bottom:	1px solid #336699;
+	width:   		100%;
+	clear:   		both;
+}
+
+.jvscenteritemheader a,
+.jvscenteritemheader a:link {
+	color:		#336699;
+	background:       transparent;
+	text-decoration:	none;
+}
+
+.jvscenteritemheader a:visited {
+	text-decoration:	none;
+}
+
+.jvscenteritemheader a:hover {
+	text-decoration:	underline;
+}
+
+.jvscenteritemheader a:active { 
+	text-decoration:	none;
+}
+
+.jvscenteritemtitle {
+	color:		white;
+	background:       #336699;
+	font-size:   	125%;
+	font-weight:   	bold;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	4px;
+	padding-bottom:   4px;
+	width:   		100%;
+	clear:   		both;
+}
+
+.jvscenteritemtitle a,
+.jvscenteritemtitle a:link {
+	color:		white;
+	background:       transparent;
+	font-size:   	125%;
+	font-weight:   	bold;
+	text-decoration:	none;
+}
+
+.jvscenteritemtitle a:visited {
+	text-decoration:	none;
+}
+
+.jvscenteritemtitle a:hover {
+	text-decoration:	underline;
+}
+
+.jvscenteritemtitle a:active { 
+	text-decoration:	none;
+}
+
+.jvscenteritembody {
+	color:		black;
+	background:       white;
+	font-size:   	100%;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	6px;
+	padding-bottom:   6px;
+	width:   		100%;
+	clear:   		both;
+}
+
+.jvscenteritembody a,
+.jvscenteritembody a:link {
+	color:		maroon;
+	background:       transparent;
+	text-decoration:	none;
+}
+
+.jvscenteritembody a:visited {
+	text-decoration:	none;
+}
+
+.jvscenteritembody a:hover {
+	text-decoration:	underline;
+}
+
+.jvscenteritembody a:active { 
+	text-decoration:	none;
+}
+
+.jvscenteritemfooter {
+	color:		maroon;
+	background:       #DEDEDE;
+	border-top:		1px solid #336699;
+	font-size:   	85%;
+	padding-left:   	4px;
+	padding-right:   	4px;
+	padding-top:   	2px;
+	padding-bottom:   4px;
+	width:   		100%;
+	clear:   		both;
+}
+
+.jvscenteritemfooter a,
+.jvscenteritemfooter a:link {
+	color:		maroon;
+	background:       transparent;
+	text-decoration:	none;
+}
+
+.jvscenteritemfooter a:visited {
+	text-decoration:	none;
+}
+
+.jvscenteritemfooter a:hover {
+	text-decoration:	underline;
+}
+
+.jvscenteritemfooter a:active { 
+	text-decoration:	none;
+}
+
+/******************************
+ *  GENERAL STYLE PROPERTIES  *
+ ******************************/
+
+/* BOXES boxes are used to present a box with a title bar and content, 
+ * they are used for modules and they are also used in the rankings, admin screen etc.
+ *
+ * The box class is used for modules while the cbox class is used for other boxes
+*/
+
+/****************
+ * Module Boxes *
+ *****************************************************************************
+ * Modules (modules are those boxes in the left/right columns)               *
+ *****************************************************************************/
+
+div.box {
+	color:		white;
+	background:       #DEDEDE;
+	margin-left:      4px;
+	margin-right:     4px;
+	margin-top:       4px;
+	margin-bottom:    8px;
+	border:   		medium outset #BBBBBB;
+	padding-bottom:   8px;
+	overflow:         hidden;
+	width:            170px;
+}
+/* Boxes are divided in title and data, this is the title */
+div.box-title {
+	color:            white;
+	background:		maroon;   /* #8e236b */
+	border-bottom:    1px solid black;
+	font-size:        110%;
+	font-weight:      bold;
+	overflow:         hidden;
+	text-align:       center;
+	padding-left:     0px;
+	padding-right:    0px;
+	margin-bottom:    1px;
+	width:            170px;
+}
+div.box-title table {
+      width:            100%;
+}
+/* When there's a link in a box-title */
+.box-title a {
+	color:            white;
+	background:		maroon;
+	text-decoration:  none;
+}
+.box-title a:active {
+	color:            white;
+	background:		maroon;
+	text-decoration:  none;
+}
+.box-title a:hover {
+	color:            #EFEFEF;
+	background:		maroon;
+	text-decoration:  underline;
+}
+
+/* And this is the data */
+div.box-data {
+	color:            black;
+	background:       transparent;
+	overflow:         hidden;
+	margin-left:      5px;
+	margin-right:     5px;
+	font-size:        100%;
+	width:            170px;
+}
+
+/* When there's a link in box-data 
+ *
+ * This set of CSS characteristics takes care of
+ * the presentation of the link. This appears to
+ * work for all but the menu module.
+ */
+.box-data a {
+	color:            black;
+	background:		transparent;
+	text-decoration:  none;
+}
+.box-data a:active {
+	color:            black;
+	background:		transparent;
+	text-decoration:  none;
+}
+.box-data a:hover {
+	color:            maroon;
+	background:		#EFEFEF;
+	text-decoration:  underline;
+}
+
+/* When modules display a list of items each item is enclosed in a cell with the following style */
+TD.module {
+	font-size:        85%;
+	color:            black;
+	text-align:       left;
+}
+/* Links in modules */
+.linkmodule {
+	font-size:        85%;
+	color:            black;
+	text-decoration:  none;
+}
+.linkmodule:active {
+	font-size:        85%;
+	color:            black; 
+
+	text-decoration:  none;
+}
+.linkmodule:hover {
+	font-size:        85%;
+	color:            black;
+	text-decoration:  underline;
+	background:       #EEEEEE;
+}
+
+/*------------------*/
+/* Non-Module Boxes */
+/*------------------*/
+/* Now the boxes for the rest of Tiki (non-modules */
+
+/*
+ * JVS: This box defines the framing box used for user preferences in MyTiki
+ *      as well as the framing box used for throughout the admin panels.
+ *      In addition, it defines the detail "inner" boxes used for the
+ *	  admin sections main panel, and the detail admin for
+ *		features,
+ *		general, and
+ *		RSS feeds
+ *
+ *      MyTiki preferences inner panels as well as the remainder (majority)
+ *      of the admin panels are formed using the "simplebox" style.
+ */
+
+div.cbox {
+	background:       #336699;
+	margin-left:      4px;
+	margin-right:     4px;
+	margin-top:       0px;
+	margin-bottom:    10px;
+      border:		medium   inset  #BBBBBB;
+	padding:		0px;
+	overflow:         hidden;
+	width:   		100%;
+	clear:   		both;
+}
+/* Boxes are divided in title and data, this is the title */
+div.cbox-title {
+	color:            white;
+	font-size:        125%;
+	font-weight:      bold;
+	text-align:       center;
+	padding-left:     0px;
+	padding-right:    0px;
+	margin-bottom:    2px;
+	overflow:         hidden;
+	width:   		100%;
+	clear:   		both;
+}
+/* When there's a link in a cbox-title */
+.cboxtlink {
+	font-size:        125%;
+	color:            white;
+	text-decoration:  none;
+}
+.cboxtlink:active {
+	color:            white;
+	text-decoration:  none;
+}
+.cboxtlink:hover {
+	color:            #EFEFEF;
+	text-decoration:  underline;
+}
+
+/* And this is the data */
+div.cbox-data {
+	background:       white;
+	color:            black;
+	font-size:        85%;
+	overflow:         hidden;
+	width:   		100%;
+	clear:   		both;
+}
+
+/* Some boxes are identified by an ID, for example the boxes in the main application menu,
+ * we set display to none to make the menu appear collapsed initially. Change this to 'block'
+ * if you want it to be extended fully */
+
+/* Boxes */
+#admmnu {
+	display: none;
+}
+#wikimenu {
+	display: none;
+}
+#faqsmenu {
+	display: none;
+}
+#galmenu {
+	display: none;
+}
+#cmsmenu {
+	display: none;
+}
+#blogmenu {
+	display: none;
+}
+#filegalmenu {
+	display: none;
+}
+
+/*-------*/
+/* Menus */
+/*-------*/
+
+/* Separators are used to separate menu areas in the application menu and user created menus */
+div.separator {
+	background:       #DFDFDF;
+	color:            #003163;
+	font-size:        85%;
+	width:            90%;
+	padding:          1px 1px 1px 5px;
+}
+/* Links in menus */
+.linkmenu, .rsslink {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.linkmenu:active, .rsslink:active {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.linkmenu:hover, .rsslink:hover {
+	font-size:   	85%;	
+	color:   		black;	
+	text-decoration:  underline;	
+	background:   	#EFEFEF;
+}
+/* style for rss lists in modules or in wiki */
+.rsslist {
+  background: 	#ffffff;
+  margin: 			0;
+  margin-right: 		10px;
+  padding: 			1px;
+  border: 			1px solid #dadac9;
+}
+.rssitem {
+  padding: 			1px 6px 1px 6px;
+  border-top: 		1px dashed #dadac9;
+  margin-left: 		15px;
+}
+.rssitem:first-child {
+  border-top: 		0;
+}
+.rssdate {
+  color: 			#999999;
+  font-style: 		italic;
+}
+/* Links to extend/collapse menus */
+.separator {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.separator:active {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.separator:hover {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+/* Links to collapse menus for example the main menu can be completely collapsed*/
+.flip {
+	font-size:   	85%;
+	color:   		white;
+	text-decoration:  none;
+}
+.flip:active {
+	font-size:   	85%;
+	color:   		white;
+	text-decoration:  none;
+}
+.flip:hover {
+	font-size:   	85%;
+	color:   		white;
+	text-decoration:  none;
+}
+/* Banners of type text (textadds) are displayed as links using the following style */
+.bannertext {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.bannertext:active {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.bannertext:hover {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+/* Some boxes uses thumbnails this is the image style */
+div.imagerank {
+	margin-left:    	5px;
+	margin-right:   	5px;
+	margin-bottom:   	10px;
+	margin-top:   	10px;
+}
+/* A simple box is just a div with a border around and some margin 
+ * used for example in the admin screen 
+ */
+
+/*
+ * JVS: This box defines the inside framing box used for user preferences in
+ *      the MyTiki administration panels as well as the inside framing boxes
+ *      used for for the majority of the detail feature adminsitration panels.
+ *      Exceptions include:
+ *		features,
+ *		general, and
+ *		RSS feeds
+ *      which use the "cbox" style for both inner and outer framing.
+ */
+
+div.simplebox {
+	background:   	white;
+	color:   		black;
+	border:   		1px solid #336699;
+	font-size:   	85%;
+	padding-left:   	4px;
+	padding-top:   	4px;
+	padding-bottom:   4px;
+	padding-right:   	4px;
+	width:		100%;
+	clear:		both;
+}
+
+/*----------------*
+ * General tables *
+ *----------------*/
+
+/* These styles apply to tables used to display common listings such as the wiki page listing,
+ * last changes, listings in admin screens, etc. */
+
+/* Cells where nothing is specified */
+TD {
+	color:    		black;
+	font-size:   	85%;
+	vertical-align:   top;
+}
+/* Cells in forms without background color (inside a div for example) */
+TD.form {
+	color:    		black;
+	font-size:   	85%;
+	vertical-align:   top;
+	text-align:   	left;
+}
+/* Cells in forms using a background color */
+TD.formcolor, 
+td.galform, 
+td.editblogform, 
+td.editfgalform, 
+TD.comform, 
+td.forumform {
+	color:    		black;
+	font-size:   	85%;
+	vertical-align:   top;
+	text-align:   	left;
+	background: #DEDEDE;
+}
+/* The table */
+table.listgallery, 
+table.creategalform, 
+TABLE.normal, 
+table.gallerylisting, 
+table.bloglist, 
+table.editblogform, 
+table.editfgalform,	
+table.listfgal, 
+table.listfiles, 
+table.listarticles, 
+table.forumstable, 
+table.forumformtable, 
+table.viewthread {
+	border-color:    	#CCCCCC;
+	border-style:   	groove;
+	border-width:   	medium;
+/*	border-width:   	1px; */
+	width:   		97%;
+}
+TABLE.normalnoborder {
+	width: 		97%;
+}
+/* Table headings */
+TD.heading,
+td.gallistheading, 
+td.listgalheading, 
+td.bloglistheading, 
+td.listfgalheading, 
+td.listfilesheading, 
+td.listartheading,
+td.forumheading,
+td.thead {
+	background: 	#336699;
+	color:		white;
+	font-size:   	85%;
+	font-weight:   	bold;
+	padding-left:   	3px;
+	padding-right:   	5px;
+}
+TD.button {
+	color:   		white;
+	font-size:   	85%;
+	font-weight:   	bold;
+	background: transparent; 
+	padding-left:   	2px;
+	padding-right:   	5px;
+	text-align:   	center;
+	vertical-align:   middle;
+	width:            100%;
+	clear:		both;
+}
+/* Links to view an object from a table listing objects can be generalized to this link */
+a.tablename, 
+a.galname, 
+a.imagename, 
+a.blogname, 
+a.fgalname, 
+a.artname, 
+a.forumname {
+	font-weight:    	bold;
+	font-size:   	85%;
+	letter-spacing:   1px;
+	color:   		black;
+	text-decoration:  none;
+}
+a.tablename:active, 
+a.galname:active, 
+a.imagename:active, 
+a.blogname:active, 
+a.fgalname:active, 
+a.artname:active,	
+a.forumname:active {
+	text-decoration:  none;
+}
+a.tablename:hover, 
+a.galname:hover, 
+a.imagename:hover, 
+a.blogname:hover, 
+a.fgalname:hover, 
+a.artname:hover, 
+a.forumname:hover {
+	text-decoration: underline;
+}
+a.forumnameread {
+	font-size:		85%;
+	letter-spacing:   1px;
+	color:   		black;
+	text-decoration:  none;
+}
+a.forumnameread:hover {
+	text-decoration: underline;
+}
+
+/* Links in table headings */
+.tableheading, 
+.gallistheading, 
+.listgalheading, 
+.bloglistheading, 
+.llisfgalheading, 
+.llistfileslink, 
+.llistart, 
+.lforumheading {
+	color:   		white;
+	font-size:   	85%;
+	font-weight:   	bold;
+	text-decoration:  none;
+}
+.tableheading:active, 
+.gallistheading:active, 
+.listgalheading:active, 
+.bloglistheading:active, 
+.llisfgalheading:active, 
+.llistfileslink:active, 
+.llistart:active, 
+.lforumheading:active {
+	color:   		white;
+	text-decoration:  none;
+}
+.tableheading:hover, 
+.gallistheading:hover, 
+.listgalheading:hover, 
+.bloglistheading:hover, 
+.llisfgalheading:hover, 
+.llistfileslink:hover, 
+.llistart:hover, 
+.lforumheading:hover {
+	color:   		#CCCCCC;
+	text-decoration:  none;
+}
+
+/* When a find button is provided for a listing the table form is displayed in a table
+ * with the following style */
+table.findtable {
+	width:    		97%;
+	margin-bottom:   	20px;
+	padding-bottom:   10px;
+}
+td.findtable {
+	font-size:   	85%;
+}
+
+/* Odd rows in several listings */
+TD.odd, 				td.gallistnameodd, 		td.gallistdescriptionodd, 
+td.gallistcreatedodd, 		td.gallistlastModifodd, 	td.gallistuserodd, 
+td.gallistimagesodd, 		td.gallisthitsodd, 		td.gallistactionsodd, 
+td.listgalidodd, 			td.listgalnameodd, 		td.listgalcreatedodd, 
+td.listgalhitsodd, 		td.listgaluserodd, 		td.listgalfilesizeodd, 
+td.bloglistnameodd, 		td.bloglistdescriptionodd, 	td.bloglistcreatedodd, 
+td.bloglistlastModifodd, 	td.bloglistuserodd, 		td.bloglistpublicodd, 
+td.bloglistpostsodd, 		td.bloglistvisitsodd, 		td.bloglistactivityodd, 
+td.bloglistactionsodd, 		td.listfgalnameodd, 		td.listfgaldescriptionodd, 
+td.listfgalcreatedodd, 		td.listfgallastModifodd, 	td.listfgaluserodd, 
+td.listfgalfilesodd, 		td.listfgalvisitsodd, 		td.listfgalactionsodd, 
+td.listfilesnameodd, 		td.listfilesdescriptionodd, 	td.listfilesidodd, 
+td.listfilesfilenameodd, 	td.listfilesfilesizeodd, 	td.listfilescreatedodd, 
+td.listfilesdlsodd, 		td.listfilesnameodd, 		td.listfilesuserodd, 
+td.listfilesactionsodd, 	td.listarttitleodd, 		td.listarttopicodd, 
+td.listartpublishDateodd, 	td.listartauthorodd, 		td.listartreadsodd, 
+td.listarthasimageodd, 		td.listartuseimageodd, 		td.listartactionsodd, 
+td.listartsizeodd, 		td.forumstableodd, 		td.forumstableinfoodd, 
+td.topictitleodd, 		td.topicrepliesodd, 		td.topicreadsodd, 
+td.topicscoreodd, 		td.topiclastpostodd, 		td.topicauthorodd {
+	font-size:   	85%;
+	background: #DFDFDF;
+	color:   		black;
+	vertical-align:   top;
+	text-align:   	left;
+}
+
+/* Even rows in several listings */
+TD.even,				td.gallistnameeven,		td.gallistdescriptioneven, 
+td.gallistcreatedeven, 		td.gallistlastModifeven, 	td.gallistusereven, 
+td.gallistimageseven, 		td.gallisthitseven, 		td.gallistactionseven, 
+td.listgalideven, 		td.listgalnameeven, 		td.listgalcreatedeven, 
+td.listgalhitseven, 		td.listgalusereven, 		td.listgalfilesizeeven, 
+td.bloglistnameeven, 		td.bloglistdescriptioneven, 	td.bloglistcreatedeven, 
+td.bloglistlastModifeven, 	td.bloglistusereven, 		td.bloglistpubliceven, 
+td.bloglistpostseven, 		td.bloglistvisitseven, 		td.bloglistactivityeven, 
+td.bloglistactionseven, 	td.listfgalnameeven, 		td.listfgaldescriptioneven, 
+td.listfgalcreatedeven, 	td.listfgallastModifeven, 	td.listfgalusereven, 
+td.listfgalfileseven, 		td.listfgalvisitseven, 		td.listfgalactionseven, 
+td.listfilesnameeven, 		td.listfilesdescriptioneven, 	td.listfilesideven, 
+td.listfilesfilenameeven, 	td.listfilesfilesizeeven, 	td.listfilescreatedeven, 
+td.listfilesdlseven, 		td.listfilesnameeven, 		td.listfilesusereven, 
+td.listfilesactionseven, 	td.listarttitleeven, 		td.listarttopiceven, 
+td.listartpublishDateeven, 	td.listartauthoreven, 		td.listartreadseven, 
+td.listarthasimageeven, 	td.listartuseimageeven, 	td.listartactionseven, 
+td.listartsizeeven, 		td.forumstableeven, 		td.forumstableinfoeven, 
+td.topictitleeven, 		td.topicreplieseven, 		td.topicreadseven, 
+td.topicscoreeven, 		td.topiclastposteven, 		td.topicauthoreven {
+	font-size:   	85%;
+	background: White;
+	color:   		black;
+	vertical-align:   top;
+	text-align:   	left;
+}
+
+TD.third {
+	font-size:   	85%;
+	color:   		black;
+	background: #CCCCCC;
+	vertical-align:   top;
+	text-align:   	left;
+}
+
+/**********
+ * Titles *
+ **********/
+
+/* When the page title is a link this is the style */
+.pagetitle,
+.paneltitle,
+.forumspagetitle {
+	color:            maroon;
+	background:		transparent;
+
+	font-weight:    	bold;
+	font-size:      	200%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+      text-transform:	uppercase;
+
+	overflow:         hidden;
+	text-align:       left;
+	padding-left:     4px;
+	padding-right:    4px;
+	margin-bottom:    4px;
+
+}
+
+.keyitemtitle {
+	color:            white;
+	background:		transparent;
+
+	font-weight:    	bold;
+	font-size:      	150%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+
+	overflow:         hidden;
+	text-align:       left;
+	padding-left:     4px;
+	padding-right:    4px;
+	margin-bottom:    4px;
+
+}
+a.pagetitle, 
+a.paneltitle,
+a.keyitemtitle,
+a.forumspagetitle {
+	text-decoration:  none;
+}
+a.pagetitle:hover, 
+a.paneltitle:hover,
+a.keyitemtitle:hover,
+a.forumspagetitle:hover {
+	text-decoration:  underline;
+}
+
+/* Links where no special link style apply (usually with the general application background) */
+/* .link,  */
+.gallink, 
+.bloglink, 
+.fgallink, 
+.trailer, 
+.opencomlink, 
+.commentslink, 
+.admlink, 
+.forumbutlink {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  underline;
+}
+
+/* .link:active,  */
+.gallink:active, 
+.bloglink:active, 
+.fgallink:active, 
+.trailer:active, 
+.opencomlink:active, 
+.commentslink:active, 
+.admlink:active, 
+.forumbutlink:active {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  underline;
+}
+
+/* .link:hover,  */
+.gallink:hover, 
+.bloglink:hover, 
+.fgallink:hover, 
+.trailer:hover, 
+.opencomlink:hover, 
+.commentslink:hover, 
+.admlink:hover, 
+.forumbutlink:hover {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  underline;
+}
+
+/* Search results display a date using the following style*/
+div.searchdate {
+	font-size:   	85%;
+	color:   		#333333;
+}
+/* Pagination for listings */
+.mini {
+	font-size:   	70%;
+	color:   		black;
+}
+/* prev & next buttons in pagination */
+.prevnext, 
+.galprevnext, 
+.blogprevnext, 
+.fgalprevnext, 
+.artprevnext, 
+.forumprevnext {
+	font-size:   	85%;
+	color:   		black;
+}
+.prevnext:active, 
+.galprevnext:active, 
+.blogprevnext:active, 
+.fgalprevnext:active, 
+.artprevnext:active, 
+.forumprevnext:active {
+	background: transparent;
+}
+.prevnext:hover, 
+.galprevnext:hover, 
+.blogprevnext:hover, 
+.fgalprevnext:hover, 
+.artprevnext:hover, 
+.forumprevnext:hover {
+	background: #EFEFEF;
+}
+/* Warning background/color */
+span.warn {
+	color: 		red;
+}
+
+/*********************************************
+ *             T H E   W I K I               *
+ * (x) JVS pass 1                            *
+ *********************************************/
+div.titlebar {
+	color:   		white;
+	font-weight:   	bold;
+	font-size:		150%;
+	text-align:		center;
+	background:    	#336699;
+	border:   		1px solid white;
+	padding-left:   	1px;
+	padding-right:   	1px;
+	padding-top:   	1px;
+	padding-bottom:   1px;
+	margin:   		1px 1px;
+	width:   		100%;
+	clear:   		both;
+}
+/* The bar where the actions for a page are displayed */
+
+DIV#page-bar {
+	margin-left: 5px;
+}
+
+/* Description on wiki pages */
+
+/* 
+ * These are coded to give the appearance of an H2 title effect for the 
+ * individual Wiki items. (i.e., characteristics follow the H2 pattern.)
+ *
+ * NOTE: This is a violation of CSS conventions forcing the dictation of "small"
+ *       for Wiki titles. Since the module doing this cannot be located, we
+ *       are forced to make "small" become "big" ... which blows away the concept
+ *       of "small" for all other uses where it might be appropriate.
+ */
+
+div.small {
+	font-weight:    	bold;
+	font-size:      	175%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-variant:	small-caps;
+	color:          	maroon;
+}
+
+/* Wiki action buttons (the buttons displayed at the end of each page to edit/print/remove/etc a page */
+div.button2 {
+	font-size:   	85%;
+	color:   		black;
+	font-weight:   	bold;
+	background:   	white;
+	border:   		2px outset #BBBBBB;
+	padding-Left:   	0.2em;
+	padding-right:   	0.2em;
+	padding-top:   	0.2em;
+	padding-bottom:   0.2em; 
+	margin:   		0.0ex 0px; 
+}
+/* Links in buttons */
+.linkbut {
+	font-size:   	85%;
+	color:   		black;
+	background:   	white;
+	text-decoration:  none;
+}
+.linkbut:active {
+	background:   	white;
+	text-decoration:  none;
+}
+.linkbut:hover {
+	background:   	#DEDEDE;
+	text-decoration:  underline;
+}
+/* When a cached version of an external link is displayed */
+div.cache {
+	background:    #EFEFEF;
+	border:   1px solid black;
+	padding-left:   0.1em;
+	padding-right:   0.1em;
+	padding-top:   0.1em;
+	padding-bottom:   0.1em;
+	margin:   0.1ex 0px;
+	width:   100%;
+}
+div.cachedpage {
+	border:    1px solid black;
+	padding-left:   0.1em;
+	padding-right:   0.1em;
+	padding-top:   0.1em;
+	padding-bottom:   0.1em;
+	margin:   0.1ex 0px;
+	width:   100%;
+}
+/* When an external link is cached a small link to the cached version (cache) is displayed using this style */
+.wikicache {
+	font-size:   70%;
+	color:   #5E4860;
+	text-decoration:   none;
+}
+.wikicache:active {
+	font-size:   70%;
+	color:   #5E4860;
+	text-decoration:   none;
+}
+.wikicache:hover {
+	font-size:   70%;
+	color:   #5E4860;
+	text-decoration:   none;
+}
+table.wikitable {
+	border: 1px solid black;
+} 
+td.wikicell {
+	background: #EFEFEF;
+}
+/* Text in wiki pages is displayed using the following style */
+div.wikitext {
+	background:    	white;
+	border:   		medium  inset   #BBBBBB;
+	padding-left:   	0.8em;
+	padding-right:   	0.8em;
+	padding-top:   	0.5em;
+	padding-bottom:   0.5em;
+	margin:   		10px 0px;
+	font-size:   	85%;
+	width:   		100%;
+	clear:   		both;
+}
+/* Links to wiki pages */
+.wiki {
+	color: 		black;
+}
+.wiki:hover {
+	color:    		black;
+	background: #EFEFEF;
+}
+/* Date displayed for last modification date of pages */
+p.editdate {
+	color:    		black;
+	font-size:   	70%;
+}
+/* The edit-help used to display the wiki syntax when editing a page */
+div.wiki-edithelp {
+	background:    	white;
+	border:   		1px solid black;
+	font-size:   	70%;
+	padding:   		6pt;
+}
+
+/*********************************************
+ *      I M A G E   G A L L E R I E S        *
+ *********************************************/
+
+TABLE.galtable {
+        border-collapse: collapse;
+        width: 100%;
+}
+/* Gallery description */
+div.galdesc {
+	background:    #EFEFEF;
+	border:   1px solid black;
+	padding-left:   0.8em;
+	padding-right:   0.8em;
+	padding-top:   0.5em;
+	padding-bottom:   0.5em;
+	margin:   0.5ex 0px;
+	width:   97%;
+	clear:   both;
+}
+/* Container for the whole gallery */
+div.browsegallery {
+	background:    #DEDEDE;
+	width:   100%;
+}
+/* You can set a different background color for odd and even rows in the thumbnails table */
+/* Thumbnails in odd rows are shown inside oddthumb tds */
+TD.oddthumb {
+	background: white;
+}
+TD.eventhumb {
+	background: #EFEFEF;
+}
+/* Gallery Title */
+div.gallerytitle {
+	font-weight:    	bold;
+	font-size:      	200%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color:          	maroon;
+      text-transform:	uppercase;
+}
+div.adminoptions {
+	margin-top:    	5px;
+	margin-bottom:   	5px;
+	padding-top:   	10px;
+	padding-bottom:   10px;
+}
+div.sortoptions {
+	margin-top:    	5px;
+	margin-bottom:   	5px;
+	padding-top:   	10px;
+	padding-bottom:   10px;
+}
+
+
+span.sorttitle {
+
+}
+span.sortoptions {
+
+}
+/* Container for thumbnails */
+div.thumbnails {
+	border:    1px solid black;
+	margin-top:   10px;
+	margin-bottom:   10px;
+}
+/* Thumbnails images */
+img.athumb {
+	border: 1px solid Silver;
+}
+.caption {
+
+}
+/* No records found text  (displayed in the table when no records */
+p.norecords {
+	font-weight: bold;
+}
+/* Browsing an image */
+table.imageinfo {
+	border-color:    black;
+	border-style:   solid;
+	border-width:   1px;
+	width:   98%;
+}
+td.imageinfo {
+	font-size:   85%;
+	color:   black;
+	background:   #DEDEDE;
+	vertical-align:   top;
+	text-align:   left;
+}
+/* The whole container for the browse image screen (may be useful for a fancy background) */
+div.browseimage {
+	background:    #DEDEDE;
+	width:   100%;
+}
+div.imagetitle {
+	font-weight:    	bold;
+	font-size:      	200%;
+	font-family:    	"Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color:          	maroon;
+      text-transform:	uppercase;
+}
+div.gallerylink {
+
+}
+div.showimage {
+	text-align:    center;
+	margin-top:   5px;
+	margin-bottom:   5px;
+}
+div.imageinfo {
+	text-align:    center;
+	margin-top:   10px;
+	margin-bottom:   10px;
+}
+td.imageinfo {
+
+}
+table.tableinfo {
+	text-align: center;
+}
+div.linksinfo {
+	font-size:   	70%;
+	color:   		black;
+	text-align:   	center;
+	border:   		1px solid black;
+	margin-top:   	10px;
+	margin-bottom:   	10px;
+}
+
+/*********************************************
+ *              W E B L O G S                *
+ *********************************************/
+
+/* The header of a weblog post */
+div.posthead {
+	background:	#10186B;
+	font-size:   	85%;
+	color:   		white;
+	font-weight:   	bold;
+	overflow:   	hidden;
+	border:   		1px solid black;
+	border-bottom:   	0px;
+	text-align:   	center;
+	padding-left:   	0px;
+	padding-right:   	0px;
+	margin-bottom:   	0px;
+	width:   		98%;
+}
+
+/* The font used in the heading of the weblog */
+span.posthead {
+	font-size:   	85%;
+	font-weight:   	bold;
+	color:   		White;
+}
+/* Links in the weblog post heading (edit/remove) */
+/* When there's a link in a cbox-title */
+.blogt {
+	font-size:   85%;
+	color:   white;
+	text-decoration:   none;
+}
+.blogt:active {
+	font-size:   85%;
+	color:   white;
+	text-decoration:   none;
+}
+.blogt:hover {
+	font-size:   85%;
+	color:   white;
+	text-decoration:   underline;
+}
+/* The post body */
+div.postbody {
+	overflow:    hidden;
+	background:   white;
+	border:   1px solid black;
+	font-size:   85%;
+	color:   black;
+	width:   98%;
+	padding-left:   5px;
+	padding-top:   5px;
+	padding-bottom:   5px;
+	margin-bottom:   10px;
+}
+/* The weblog title */
+div.blogtitle {
+	color:   white;
+	font-size:   85%;
+	font-weight:   bold;
+	font-size:   150%;
+	background:   #10186B;
+	padding-left:   2px;
+	padding-right:   5px;
+	margin-top:   10px;
+	border:   1px solid black;
+	border-bottom:   0px;
+	width:   97%;
+}
+/* The weblog information */
+div.bloginfo {
+	background:    white;
+	border:   1px solid black;
+	padding-left:   0.8em;
+	padding-right:   0.8em;
+	padding-top:   0.5em;
+	padding-bottom:   0.5em;
+	margin-bottom:   10px;
+	font-size:   85%;
+	width:   98%;
+	clear:   both;
+}
+/* Weblog description */
+div.blogdesc {
+	background:    white;
+	border:   1px solid black;
+	padding-left:   0.8em;
+	padding-right:   0.8em;
+	padding-top:   0.5em;
+	padding-bottom:   0.5em;
+	margin-bottom:   10px;
+	font-size:   85%;
+	width:   98%;
+	clear:   both;
+}
+/* Links to post/edit/rss feed for the webelog are contained inside this div */
+div.blogtools {
+	background:    white;
+	border:   1px solid black;
+	padding-left:   0.8em;
+	padding-right:   0.8em;
+	padding-top:   0.5em;
+	padding-bottom:   0.5em;
+	margin-bottom:   10px;
+	font-size:   85%;
+	width:   98%;
+	clear:   both;
+}
+
+/*********************************************
+ *       F I L E   G A L L E R I E S         *
+ *********************************************/
+
+/* Listing contents of a file gallery (listing files) */
+div.fgaldesc {
+	background:		#DEDEDE;
+	border:   		1px solid black;
+	padding-left:   	0.8em;
+	padding-right:   	0.8em;
+	padding-top:   	0.5em;
+	padding-bottom:   0.5em;
+	margin:   		0.5ex 0px;
+	width:   		97%;
+	clear:   		both;
+}
+
+/*********************************************
+ *          D I R E C T O R I E S            *
+ *                                           *
+ * CSS stylesheet management of directory    *
+ * presentation created by JVS based on      * 
+ * new center panel divisions.               *
+ *                                           *
+ * (x) JVS pass 2                            *
+ *********************************************/
+
+/*********************************************
+ *   C O N T E N T   M A N A G E M E N T     *
+ *          S Y S T E M  ( C M S )           *
+ * (x) JVS pass 1                            *
+ *********************************************/
+
+div.article {
+	/* The article bounding box */
+}
+
+/* The article title bar */
+
+div.articletitle {
+}
+/* The article heading */
+div.articleheading {
+}
+div.articletrailer {
+}
+/* Text in the article heading */
+div.articleheadingtext {
+/*	font-size:   	85%;
+	display: 		inline; */
+}
+/* The body */
+div.articlebody {
+}
+/* The article title */
+span.titlea {
+}
+/* The author, date and number of reads */
+span.titleb {
+}
+/* The trailer */
+span.trailer {
+}
+
+/*********************************************
+ *             C A L E N D A R               *
+ * (x) JVS pass 1                            *
+ * attempts to reconcile changes made here   *
+ * to the public calendar have failed. This needs to be traced to see what
+ it actually controls.                *
+ *********************************************/
+
+/* LINKS TO DAYS IN THE CALENDAR */
+.day {
+	font-size:   	70%;
+	text-decoration:  none;
+	color:   		black;
+}
+.day:active {
+	text-decoration:  none;
+}
+.day:hover {
+	background:   	#CCCCCC;
+	text-decoration:  none;
+}
+.day:link {
+	text-decoration:  none;
+}
+.day:visited {
+	text-decoration:  none;
+}
+/* LINKS FOR TODAY */
+.today {
+	font-size:   	70%;
+	text-decoration:  none;
+	color:   		black;
+	font-weight:   	bold;
+	text-decoration:  none;
+}
+.today:active {
+	text-decoration:  none;
+	color:   		black;
+	font-weight:   	bold;
+	text-decoration:  none;
+}
+.today:hover {
+	color:   		black;
+	text-decoration:  none;
+	font-weight:   	bold;
+	background:   	#CCCCCC;
+}
+/* Links to change month, year or go to today */
+.nav {
+	font-size:   	70%;
+	text-decoration:  none;
+	color:   		black;
+	font-weight:   	bold;
+	text-decoration:  none;
+}
+.nav:active {
+	text-decoration:  none;
+	text-decoration:  none;
+}
+.nav:hover {
+	text-decoration:  none;
+	background:   	#CCCCCC;
+}
+.changedate {
+	font-size:   	70%;
+	background:   	white;
+	color:   		black;
+	font-weight:   	bold;
+}
+.date {
+	font-size:   	70%;
+	background:   	transparent;
+	color:   		black;
+	font-weight:   	bold;
+}
+
+/*********************************************
+ *             C O M M E N T S               *
+ *********************************************/
+
+/* The whole comment area when it is visible and when it is not */
+#comzone {
+	display:    	none;
+	margin-left:   	1px;
+	margin-right:   	1px;
+	margin-top:   	5px;
+	margin-bottom:   	5px;
+	padding-left:   	2px;
+	padding-right:   	2px;
+}
+#comzoneopen {
+	display:    	block;
+	margin-left:   	1px;
+	margin-right:   	1px;
+	margin-top:   	5px;
+	margin-bottom:   	5px;
+	padding-left:   	2px;
+	padding-right:   	2px;
+}
+/* Post comment form */
+div.commentspost {
+	display:    	inherit;
+	border:   		1px solid black;
+	margin-top:   	10px;
+	margin-right:   	10px;
+	padding-right:   	0px;
+	padding-top:   	0px;
+	padding-bottom:   0px;
+	margin-bottom:   	10px;
+	width:   		100%;
+}
+/* Help box*/
+div.commentsedithelp {
+	background:    	white;
+	border:   		1px solid black;
+	font-size:   	70%;
+	width:   		100%;
+}
+/* The toolbar where the ordering number of comments and find box are found */
+div.commentstoolbar {
+	background:    	#DEDEDE;
+	color:   		black;
+	margin-bottom:   	20px;
+	width:   		97%;
+	border:   		1px solid black;
+	padding-top:   	2px;
+	padding-left:   	2px;
+}
+/* The comment title */
+span.commentstitle {
+	font-weight:    	bold;
+	font-size:   	85%;
+	width:   		98%;
+}
+/* The comment */
+div.commentscomment {
+	font-size:   	85%;
+	margin-bottom:   	20px;
+	width:   		97%;
+}
+/* The header for a comment */
+div.commentheader {
+  	background:    	#DEDEDE; 
+	border:   		0px solid blue;
+	font-size:   	85%;
+	width:   		97%;
+}
+/* The text */
+div.commenttext {
+	font-size:    	85%;
+	margin-left:   	5px;
+	width:   		97%;
+}
+/* Links in the comment header */
+.commentshlink {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.commentshlink:active {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  none;
+}
+.commentshlink:hover {
+	font-size:   	85%;
+	color:   		black;
+	text-decoration:  underline;
+}
+
+/************************************************************ CHAT *********************************************************/
+
+table.chatroom {
+	border-color:    #10186B;
+	border-style:   solid;
+	border-width:   2px;
+	width:   98%;
+}
+td.chatchannels {
+	background:   #EFEFEF;
+	font-size:   85%;
+	color:   black;
+}
+td.chatarea {
+	padding-left:    0px;
+	margin-left:   0px;
+	font-size:   85%;
+	color:   black;
+	background:   #FFFFFF;
+}
+table.chatform {
+	border-color:    #10186B;
+	border-style:   solid;
+	border-width:   2px;
+	width:   98%;
+	border-top:   0px;
+}
+td.tdchatform {
+	color:    black;
+	background:   #EFEFEF;
+	font-size:   85%;
+	vertical-align:   top;
+	text-align:   left;
+}
+span.chnormal {
+	color:    red;
+	font-size:   85%;
+}
+span.chuser {
+	color:    #10186B;
+	font-size:   85%;
+	font-weight:   bold;
+}
+
+/*********************************************
+ *                P O L L S                  *
+ *********************************************/
+
+div.pollresults {
+	background:    white;
+	border:   1px solid black;
+	width:   98%;
+	margin-top:   5px;
+	font-size:   85%;
+	padding-left:   5px;
+}
+table.pollresults {
+	width: 97%;
+}
+td.pollr {
+	font-size:   85%;
+	color:   black;
+}
+
+/* MODULES */
+
+/*********************************************
+ *               F O R U M S                 *
+ *********************************************/
+
+/* Title for the forums page */
+div.forumspagetitle {
+	margin-top:    10px;
+	margin-bottom:   40px;
+}
+table.threads {
+	width: 97%;
+}
+td.viewthreadl {
+	font-size:   85%;
+	background:   #DEDEDE;
+	height:   30px;
+	width:   30%;
+	vertical-align:   top;
+}
+td.viewthreadr {
+	font-size:   85%;
+	background:   #DEDEDE;
+	height:   30px;
+	vertical-align:   top;
+}
+/* Cells for the threads table */
+td.threadsevenl {
+	width:   30%;
+	font-size:   85%;
+	background:   #DEDEDE;
+	vertical-align:   top;
+}
+td.threadsevenr {
+	font-size:   85%;
+	background:   #DEDEDE;
+	vertical-align:   top;
+}
+td.threadsoddl {
+	width:   30%;
+	font-size:   85%;
+	background:   #DEDEDE;
+	vertical-align:   top;
+}
+td.threadsoddr {
+	font-size:   85%;
+	background:   #DEDEDE;
+	vertical-align:   top;
+}
+td.threadseparator {
+	background:    #DEDEDE;
+	height:   5px;
+}
+#forumpost {
+	display: none;
+}
+#forumpostopen {
+	display: block;
+}
+#formenu {
+	display: none;
+}
+div.forumtoolbar {
+	background:    #DEDEDE;
+	width:   98%;
+	margin-bottom:   20px;
+	border:   0px;
+}
+td.forumtoolbar {
+	color:   black;
+	font-size:   85%;
+	font-weight:   bold;
+	text-decoration:   none;
+	vertical-align:   bottom;
+}
+.toolbarlink {
+	color:   white;
+	font-size:   85%;
+	font-weight:   bold;
+	text-decoration:   none;
+}
+.toolbarlink:active {
+	color:   white;
+	font-size:   85%;
+	font-weight:   bold;
+	text-decoration:   none;
+}
+.toolbarlink:hover {
+	color:   #DEDEDE;
+	font-size:   85%;
+	font-weight:   bold;
+	text-decoration:   none;
+}
+/* Links to vote */
+.forumvotelink {
+	font-size:   85%;
+	color:   black;
+}
+.forumvotelink:active {
+	font-size:   85%;
+	color:   black;
+}
+.forumvotelink:hover {
+	font-size:   85%;
+	color:   black;
+}
+
+/*********************************************
+ *           C A T E G O R I E S             *
+ *********************************************/
+
+table.tcategpath {
+	margin-bottom:    40px;
+	border-color:   #5B6C71;
+	border-style:   solid;
+	border-width:   1px;
+	width:   97%;
+}
+/* Table containing the category path */
+td.tdcategpath {
+	color:   white;
+	font-size:   85%;
+	font-weight:   bold;
+	background:   #10186B;
+	padding-left:   2px;
+	margin:   0px;
+	border-spacing:   0px;
+	padding-right:   5px;
+}
+/* Links to up/top categories */
+.categpath {
+	font-size:   85%;
+	color:   #578308;
+	text-decoration:   none;
+}
+.categpath:active {
+	font-size:   85%;
+	color:   #578308;
+	text-decoration:   none;
+}
+.categpath:hover {
+	font-size:   85%;
+	color:   #578308;
+	text-decoration:   none;
+}
+/* Table with the subcategories */
+table.subcats {
+	padding-top:    20px;
+	padding-bottom:   20px;
+	width:   97%;
+	border-spacing:   0px;
+	padding-right:   0px;
+	margin-bottom:   10px;
+	border-color:   black;
+	border-style:   solid;
+	border-width:   1px;
+}
+td.tdsubcat {
+
+	width: 25%;
+}
+/* Links to subcategories */
+.categlink {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   none;
+	font-weight:   bold;
+}
+.categlink:active {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   none;
+	font-weight:   bold;
+}
+.categlink:hover {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   underline;
+	font-weight:   bold;
+}
+table.catobjects {
+	width:    97%;
+	border-spacing:   0px;
+	padding-right:   0px;
+	margin-bottom:   10px;
+	border-color:   black;
+	border-style:   solid;
+	border-width:   0px;
+}
+td.categobjectsnameeven, td.categobjectsnameodd {
+	font-size:   85%;
+	background:   #DEDEDE;
+}
+td.categobjectsdataeven, td.categobjectsdataodd {
+	font-size:   85%;
+	background:   #DEDEDE;
+}
+.catname {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   none;
+}
+.catname:active {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   none;
+}
+.catname:hover {
+	font-size:   85%;
+	color:   black;
+	text-decoration:   underline;
+}
+
+/*********************************************
+ *                 F A Q S                   *
+ *********************************************/
+
+/* The list of questions */
+div.faqlistquestions {
+	background:    #FFFFFF;
+	color:   black;
+	font-size:   85%;
+	border:   1px solid black;
+	width:   98%;
+	padding-top:   5px;
+	padding-bottom:   5px;
+}
+/* Container for question-answer block */
+div.faqqa {
+	background:    #DEDEDE;
+	color:   black;
+	font-size:   85%;
+	width:   97%;
+	border:   1px solid black;
+	margin-bottom:   20px;
+	padding-top:   5px;
+	padding-bottom:   5px;
+	padding-left:   5px;
+}
+/* The question */
+div.faqquestion {
+	margin-bottom:    5px;
+	font-size:   85%;
+	width:   97%;
+}
+/* The answer */
+div.faqanswer {
+
+	font-size:   85%;
+	width:   97%;
+	background:   #DEDEDE;
+}
+
+/*********************************************
+ *              Q U I Z Z E S                *
+ *********************************************/
+
+#quizmenu {
+	display: none;
+}
+div.questionblock {
+	border:    1px solid black;
+	background:   white;
+	margin-bottom:   10px;
+}
+div.quizquestion {
+	font-size:   85%;
+	margin-bottom:   5px;
+}
+div.quizoptions {
+	font-size:   85%;
+}
+div.quizdescription {
+	font-size:   85%;
+	border:   1px solid black;
+	background:   white;
+	margin-bottom:   10px;
+}
+div.quizanswer {
+	font-size:   85%;
+	border:   1px solid black;
+	background:   white;
+	margin-bottom:   10px;
+}
+
+/*********************************************
+ *             S H O U T B O X               *
+ *********************************************/
+
+div.shoutboxmsg {
+	font-size:   85%;
+	border:   1px solid black;
+	background:   white;
+	margin-bottom:   0px;
+	padding-left:   2px;
+	padding-top:   1px;
+	padding-bottom:   1px;
+}
+div.shoutboxmodmsg {
+	font-size:   85%;
+	margin-bottom:   4px;
+	padding-left:   2px;
+	padding-top:   1px;
+	padding-bottom:   1px;
+}
+textarea.tshoutbox {
+	background:    white;
+	border-bottom:   #5e5d63 1px solid;
+	border-left:   #5e5d63 1px solid;
+	border-right:   #5e5d63 1px solid;
+	border-top:   #5e5d63 1px solid;
+	color:   #000000;
+	font-size:   85%;
+}
+
+/*********************************************
+ *            M O R E   M I S C              *
+ *       G E N E R A L   L A Y O U T         *
+ *********************************************/
+
+/*********************************************
+ *     M A I N   P A N E L   S T Y L E       *
+ *                                           *
+ * Main panel style as created by JVS for    * 
+ * use on all new JVS modified main panel    *
+ * display data. This provides a generalized *
+ * pattern for the main panel windows.       *
+ *                                           *
+ * (x) JVS pass 2                            *
+ *********************************************/
+
+/* The tiki calendar bounding box */
+.jvsfocuspanel {
+	color:   		black;
+	background:		transparent;    
+	font-size:   	85%;
+	padding-left:   	0.8em;
+	padding-right:   	0.8em;
+	padding-top:   	0.5em;
+	padding-bottom:   0.5em;
+	margin-top:   	5px;
+	margin-bottom:	10px;
+	width:   		100%;
+	clear:   		both;
+}
+
+/*********************************************
+ *             C A L E N D A R               *
+ * (x) JVS pass 2                            *
+ *********************************************/
+
+/* The tiki calendar bounding box */
+
+div#jvscalendar {
+      border-width:     medium  medium  medium  medium;
+      border-style:     inset   inset   inset   inset;
+      border-color:     #BBBBBB #BBBBBB #BBBBBB #BBBBBB;
+}
+
+/*-----------------*/
+/* calendar styles */
+/*-----------------*/
+#calendar{
+	width:		97%;
+}
+
+span.button2 {
+	font-size:   	85%;
+	color:   		black;
+	font-weight:   	bold;
+	background:   	white;
+	border:   		2px outset #BBBBBB;
+	padding-Left:   	0.2em;
+	padding-right:   	0.2em;
+	padding-top:   	0.2em;
+	padding-bottom:   0.2em; 
+	margin:   		0.0ex 0px; 
+}
+
+/* One or more of the following entries
+ * create "calendar item" entries on the calendar
+ * on the date the item occurs. Items then have
+ * captions which appear and hover of themouse over 
+ * the caption causes a pop-up with further text 
+ * describing the item. The primary effect of this 
+ * entry seems to be the bounding box for the item.
+ */
+.Cal0, .Cal1, .Cal2 {
+	border-top:    	2px dashed #336699; /* used color theme */
+	background:		white;
+	color:		green;
+/*	color:		#425262; */
+	font-size:		85%;
+	padding-right:	0px;
+}
+.Cal0:before {
+	content:		"? ";
+}
+.Cal1:before {
+	content:		"+ ";
+	background:		#FFCC77;
+}
+.Cal2:before {
+	content:		"X ";
+	background:		#eeeeaa;
+}
+/* misc cal styles */
+.caltitle {
+	/* Defines column title for selection blocks
+         on the "Calendars Panel" of the calendar */
+	font-weight:	bold;
+	color:		maroon;
+}
+
+/*
+ * Simulated folder tabs at the top of the calendar 
+ * Padding left provides indentation to align with left
+ * edge of top of calendar body. 
+ *
+ * General definition of tab is followed by behavior
+ * modifications as tabs are hovered, expanded, etc.
+ *
+ * 'caltab' defines the general tab heading in un-expanded mode.
+ */
+
+.caltab {
+	padding-left:     10px;
+	padding-right:    10px;
+	border:           3px solid #336699;
+	border-bottom:	2px solid #336699;
+	margin-right:     6px;
+}
+a.caltab {
+	text-decoration:  none;
+	font-weight:      bold;
+	font-size:        85%;
+	background: 	#336699;
+	color:   		white;
+}
+a.caltab:hover {
+	color:		#dedede;
+	background:		#336699;
+/*	border-bottom:    2px solid #dedede; */
+}
+.caltabon {
+	padding-left:     10px;
+	padding-right:    10px;
+	background:		white;
+	border:           2px solid #336699;
+	border-bottom:    2px solid white;	/* to blend with panel below */	
+	margin-right:     6px;
+}
+a.caltabon {
+	text-decoration:  none;
+	font-weight:      bold;
+	font-size:        85%;
+	color:            black;
+	background:		white;
+}
+a.caltabon:hover {
+	text-decoration:	none;
+}
+
+div#tab, 
+div#tabcal, 
+div#tabnav {
+	margin-top:       10px;
+	margin-left:      30px;
+}
+
+div#tab {
+	margin-bottom:    1px;
+}
+div.tabcal, div.tabnav {
+	padding:          10px;
+	background: 	white;
+	border:           2px solid #336699;
+	border-bottom:    1px solid #aeaeae;
+	font-size:        85%;
+}
+/* checkboxes background is required for rollover display */
+.calcheckbox {
+	background: 	#ffffff;
+}
+.caltoggle {
+	font-size:        70%;
+	margin-bottom:    7px;
+}
+/* style of the popup background in case of transparent styles */
+#opaque {
+	background: 	#DEDEDE;
+}
+.calfocus {
+	font-size:        70%;
+	background: transparent;
+}
+.calfocus a {
+	text-decoration:  none;
+	color:            #000000;
+}
+.calfocuson {
+	font-size:        70%;
+	background: 	#f3e498;
+}
+.calfocuson a {
+	text-decoration:  none;
+	color:            #000000;
+}
+.Calwiki {
+	border-top:       1px dashed #cccccc;
+	font-size:        85%;
+	padding-left:     3px;
+	padding-right:    3px;
+	margin-top:       0;
+}
+.Calwiki a {
+	color: 		#443F39;
+}
+.Calwiki:before {
+	content:    	"w";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calblog {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calblog a {
+	color: 		#443039;
+}
+.Calblog:before {
+	content:    	"b";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calgal {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calgal a {
+	color: 		#303F49;
+}
+.Calgal:before {
+	content:    	"i";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calart {
+  	border-top:    	1px dashed #cccccc; 
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calart a {
+	color: 		#304F30;
+}
+.Calart:before {
+	content:    	"a";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calforum {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calforum a {
+	color: 		#304F30;
+}
+.Calforum:before {
+	content:    	"o";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Caldir {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Caldir a {
+	color: 		#304F30;
+}
+.Caldir:before {
+	content:    	"d";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calfgal {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calfgal a {
+	color: 		#304F30;
+}
+.Calfgal:before {
+	content:    	"f";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calfaq {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calfaq a {
+	color: 		#304F30;
+}
+.Calfaq:before {
+	content:    	"q";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calquiz {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calquiz a {
+	color: 		#304F30;
+}
+.Calquiz:before {
+	content:    	"z";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Caltrack {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Caltrack a {
+	color: 		#304F30;
+}
+.Caltrack:before {
+	content:    	"t";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calsurv {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calsurv a {
+	color: 		#304F30;
+}
+.Calsurv:before {
+	content:    	"s";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calnl {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calnl a {
+	color: 		#304F30;
+}
+.Calnl:before {
+	content:    	"n";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Caleph {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Caleph a {
+	color: 		#304F30;
+}
+.Caleph:before {
+	content:    	"e";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.Calchart {
+	border-top:    	1px dashed #cccccc;
+	font-size:   	85%;
+	padding-left:   	3px;
+	padding-right:   	3px;
+}
+.Calchart a {
+	color: 		#304F30;
+}
+.Calchart:before {
+	content:    	"c";
+	font-family:   	monospace;
+	background: #ffffff;
+}
+.calweb {
+	font-weight:    	bold;
+	font-size:   	85%;
+	text-decoration:  none;
+	padding-left:   	3px;
+	padding-right:   	3px;
+	color:   		#336699;
+}
+.calweb:hover {
+	color: 		#996633;
+}
+
+/*
+ * Following items are used to indicate 
+ * priority for calendar items. Nine 
+ * priorities can be assigned. This causes
+ * highlighting of items into three 
+ * priority ranges.
+ */
+
+.calprio1 {
+/*	background: #DAE0E0; */
+	color:		black;
+	background:		white;
+}
+.calprio2 {
+/*	background: #DADCDC; */
+	color:		black;
+	background:		white;
+}
+.calprio3 {
+/*	background: #DAD0D0; */
+	color:		black;
+	background:		white;
+}
+.calprio4 {
+/*	background: #DACACA; */
+	color:		black;
+	background:		aqua;
+}
+.calprio5 {
+/*	background: #DAC0D0; */
+	color:		black;
+	background:		aqua;
+}
+.calprio6 {
+/*	background: #DABABA; */
+	color:		black;
+	background:		aqua;
+}
+.calprio7 {
+/*	background: #DAB0B0; */
+	color:		black;
+	background:		yellow;
+}
+.calprio8 {
+/*	background: #DAAAAA; */
+	color:		black;
+	background:		yellow;
+}
+.calprio9 {
+/*	background: #DA9A9A; */
+	color:		black;
+	background:		yellow;
+}
+
+/*
+ * Next element defines the navigation bar row across
+ * the top of the calendar. This bar has different 
+ * content format depending on whether the js-calendar feature
+ * is enabled. If  not, it has +/- day/week/month features
+ * directly supplied. If js-calendar is endabled, on a general
+ * selection is supplied and detail navigation is via the
+ * js-calendar feature.
+ */
+div.tabrow {
+	margin-left: 	30px;
+	background:		#dedede;
+	border:		2px solid #336699;
+	border-bottom: 	0;
+	font-size: 		85%;
+}
+
+td.middle {
+	vertical-align: 	middle; 
+}
+.daterow {
+	margin-left: 	10px;
+}
+.mininotes {
+	font-size: 		70%;
+	color:		#666666;
+}
+/*
+ * Next element determine primarily the
+ * outline and background of the bounding
+ * box for calendar event popups.
+ *
+ * Style of the actual content of these boxes 
+ * determined by the box-title and box-data style
+ * elements.
+ */
+.opaque{
+	background: 	white;
+	width: 		auto; 
+	border: 		4px solid #666666;
+	padding: 		2px; 
+}
+
+.calcontent {
+	min-height: 	60px;
+}
+.viewmodeon {
+	padding-left:   	0px;
+	padding-right:   	0px;
+}
+.viewmodeoff {
+	padding-left:   	0px;
+	padding-right:   	0px;
+}
+a.viewmodeon img {
+	margin: 		0;
+      padding: 		0;
+}
+a.viewmodeoff img {
+	margin: 		0;
+      padding: 		0;
+}
+/* 
+ * Next element determines the width of the calendar table. This is
+ * the segment that defines the array for the calendar daily entries.
+ * The first column of this table array is the week number, followed
+ * by seven entries, one for each day of the week.
+ */
+#caltable {
+/*	border-color:	#336699;
+	padding-right:    2px;
+      padding-bottom:	2px;
+	border-right:	2px;
+	border-bottom:	2px;	*/
+	width: 		100%;
+}
+/*
+ * help zone
+ */
+
+div#edithelpzone {
+	display: 		none;
+}
+
+div#attzone {
+	display:    	none;
+	margin-top:   	10px;
+}
+
+div#attzoneopen {
+	display:    	block;
+	margin-top:   	10px;
+}
+
+/*
+ * The following 'class' is used for text highlighting
+ * in various contexts.
+ */
+.highlight {
+	font-weight:		bold;
+	font-style:			italic;
+	color:			black;
+	background:			yellow;
+}
+/* 
+ * Caption in tables.
+ * Currently in Attachments and comments only.
+ */
+caption {
+	font-size:   85%;
+	font-weight:   bold;
+	text-align:   right;
+}
+/* trees */
+div.tree {
+	text-align:    left;
+	padding-left:   1.5em;
+}
+/* Root of tree (outer div) */
+div.tree#top {
+	border:    1px outset blue;
+	padding:   10px 1.5em 20px 1.5em;
+}
+
+/* Wiki editpage textarea */
+textarea.wikiedit {
+	width: 100%;
+}
+
+/* help links style */
+a.tikihelp, 
+a.tikihelp:visited {
+	color:    inherit;
+	border:   inherit;
+	background:   inherit;
+	font-size:   inherit;
+	font-weight:   inherit;
+	margin:   inherit;
+	padding:   inherit;
+	text-decoration:   inherit;
+}
+
+ a.tikihelp:hover {
+	color:    #224466;
+	border:   inherit;
+	background:   inherit;
+	font-size:   inherit;
+	font-weight:   inherit;
+	margin:   inherit;
+	padding:   inherit;
+	cursor:   help;
+	text-decoration:   inherit;
+}
+
+/* TikiIntegrator: By default copy rules dialog not shown */
+
+div#rules-copy-panel {
+	display:		none;
+}
+
+/* admin area tables */
+TABLE.admin {
+	width:		100%;
+}

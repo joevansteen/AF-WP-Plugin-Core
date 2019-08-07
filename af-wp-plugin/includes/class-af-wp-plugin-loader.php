@@ -1,26 +1,20 @@
 <?php
 
 /**
- * Register all actions and filters for the plugin
- *
- * @link       http://architectedfutures.net
- * @since      5.2019.0805
- *
- * @package    AF_WP_Plugin
- * @subpackage AF_WP_Plugin/includes
- */
+ Register all actions and filters for the plugin
+ 
+ @package    AF_WP_Plugin
+ @subpackage AF_WP_Plugin/includes
+ @author     JVS <joe.vansteen@architectedfutures.org>
+ @link       https://architectedfutures.org
+ @since      5.2019.0805
+ 
+ Maintain a list of all hooks that are registered throughout
+ the plugin, and register them with the WordPress API. Call the
+ run function to execute the list of actions and filters.
+ 
+*/
 
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    AF_WP_Plugin
- * @subpackage AF_WP_Plugin/includes
- * @author     JVS <joe.vansteen@architectedfutures.org>
- */
 class AF_WP_Plugin_Loader {
 
 	/**
@@ -127,3 +121,7 @@ class AF_WP_Plugin_Loader {
 	}
 
 }
+/**
+ * Close the module properly!
+ */
+ ?>

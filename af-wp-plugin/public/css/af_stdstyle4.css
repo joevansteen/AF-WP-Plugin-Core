@@ -1,0 +1,99 @@
+/* af_stdstyle.css ... 
+ * Copyright (c) 2005 Architected Futures, LLC
+ *
+ * V1.0 2005-OCT-13 JVS Begin test of new standalone PHP environment scripts
+ *
+ * GENERAL COMMENTS
+ */   
+BODY
+{
+    FONT-SIZE: 10pt;
+    MARGIN: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial, Helvitica, sans-serif;
+    BACKGROUND-COLOR: cornsilk
+}
+DIV
+{
+    BORDER-RIGHT: groove;
+    BORDER-TOP: groove;
+    Z-INDEX: 8;
+    FLOAT: left;
+    VISIBILITY: inherit;
+    OVERFLOW: auto;
+    BORDER-LEFT: groove;
+    BORDER-BOTTOM: groove;
+    POSITION: absolute
+}
+HR
+{
+    FONT-SIZE: 1px;
+    COLOR: blue;
+    width = 95%; 
+    text-align=center}
+H1
+{
+    FONT-SIZE: 20pt;
+    TEXT-TRANSFORM: uppercase;
+    TEXT-ALIGN: center;
+    COLOR: #4e4e4e
+}
+H2
+{
+    FONT-SIZE: 18pt;
+    COLOR: #4e4e4e;
+    FONT-STYLE: italic;
+    FONT-FAMILY: Arial, Verdana;
+    FONT-VARIANT: small-caps
+}
+H3
+{
+    FONT-SIZE: 14pt;
+    COLOR: #4e4e4e;
+    FONT-FAMILY: Arial, Verdana
+}
+.fnButton
+{
+    BORDER-RIGHT: moccasin thin ridge;
+    BORDER-TOP: moccasin thin;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: moccasin thin;
+    WIDTH: 75px;
+    COLOR: black;
+    BORDER-BOTTOM: moccasin thin outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: wheat;
+    TEXT-ALIGN: center
+}
+TABLE
+{
+    FONT-SIZE: 10pt;
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial
+}
+
+A
+{
+    COLOR: #000000
+}
+A:hover
+{
+    BACKGROUND-COLOR: #f2f2ff;
+    TEXT-DECORATION: none
+}
+
+LI, TD
+{
+    FONT-FAMILY: Arial, Helvitica, sans-serif; font-size: 13px
+}
+/* Make definition lists looks better */
+DL
+{
+   FONT-FAMILY:	Arial, Helvitica, sans-serif; font-size: 13px;
+    display: compact;
+}
+DD
+{
+    FONT-FAMILY: Arial, Helvitica, sans-serif; font-size: 13px
+    margin-left: 4em;
+}

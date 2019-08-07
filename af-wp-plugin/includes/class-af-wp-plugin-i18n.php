@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://architectedfutures.net
+ * @link       https://architectedfutures.org
  * @since      5.2019.0805
  *
  * @package    AF_WP_Plugin
@@ -45,3 +45,7 @@ class AF_WP_Plugin_i18n {
 
 
 }
+/**
+ * Close the module properly!
+ */
+ ?>

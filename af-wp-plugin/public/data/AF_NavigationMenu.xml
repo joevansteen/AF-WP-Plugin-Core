@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+	<!--
+	===================================================================================
+	Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+	Author:   Joe Van Steen
+	Status:   Prototype
+
+	Primary Navigation Menu
+	Contains two sets of specifications:
+	<menuStructure> ... </menuStructure> defines the menu hierarchy. These entries
+	contain pointers to elements in the second speoification set.
+
+	<menuItems> ... </menuItems> defines the individual menu items. These are
+	normalized out of the first set of specifications in order to be able to define
+	more than one menu path to the same item, and still have a single, normalized
+	control entry for the naviagtion specification.
+
+	Needs expansion to hook into scheme for menu access based on role-based security.
+	Needs adjustment for internationalization (foreign languages)
+	===================================================================================
+	-->
+
+	<!--
+	===================================================================================
+	Overall Menu Structure
+	role - defines role for which the item is applicable
+	* is 'any'
+	Anon is anonymous user, but NOT non-anonymous user
+	Registered is registered user
+	parent - defines the item parent, defines the menu hierarchy
+	Item - provides the unique menu item ID for the item
+	menuItem - provides a pointer to the menu item in the master table
+	===================================================================================
+	-->
+	<menuStructure>
+		<element>
+			<role>*</role>
+			<parent/>
+			<itemKey>mnuItemHome</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Home</label>
+			<description>Home Page</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemServices</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Services</label>
+			<description>Our Services</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemContent</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Content</label>
+			<description>Web Content</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemMembers</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Members</label>
+			<description>Member Content</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemResources</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Resources</label>
+			<description>Resources Area</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemAbout</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>About</label>
+			<description>About Us</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemHome</parent>
+			<itemKey>mnuItemAdmin</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Admin</label>
+			<description>Administrative Area</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemServices</parent>
+			<itemKey>mnuItemConsulting</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Consulting</label>
+			<description>Consulting Services</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemServices</parent>
+			<itemKey>mnuItemDevelopment</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Development</label>
+			<description>Development Services</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemServices</parent>
+			<itemKey>mnuItemProducts</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Products</label>
+			<description>Product Information</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemContent</parent>
+			<itemKey>mnuItemNews</itemKey>
+			<itemType>Dialog</itemType>
+			<label>News</label>
+			<description>News Stories</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemContent</parent>
+			<itemKey>mnuItemBlog</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Blog</label>
+			<description>Blogs</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemContent</parent>
+			<itemKey>mnuItemArticles</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Articles</label>
+			<description>Articles Section</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemContent</parent>
+			<itemKey>mnuItemForum</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Forum</label>
+			<description>Forums</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemContent</parent>
+			<itemKey>mnuItemWiki</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Wiki</label>
+			<description>Product Information Wiki</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMembers</parent>
+			<itemKey>mnuItemRepository</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Repository</label>
+			<description>Architecture Information Repository</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemRepository</parent>
+			<itemKey>mnuItemEleIndex</itemKey>
+			<itemType>Dialog</itemType>
+			<label>element Index</label>
+			<description>Repository Element Index</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemEleIndex</parent>
+			<itemKey>mnuItemEleIndexByCrDt</itemKey>
+			<itemType>ItemSelection</itemType>
+			<label>Create Date</label>
+			<description>Repository Index By Create Date</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemEleIndex</parent>
+			<itemKey>mnuItemEleIndexByModDt</itemKey>
+			<itemType>ItemSelection</itemType>
+			<label>Update Date</label>
+			<description>Repository Index By Modification Date</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemEleIndex</parent>
+			<itemKey>mnuItemEleIndexByType</itemKey>
+			<itemType>ItemSelection</itemType>
+			<label>element Type</label>
+			<description>Repository Index By Element Type</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMembers</parent>
+			<itemKey>mnuItemSurveys</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Surveys</label>
+			<description>Surveys</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMembers</parent>
+			<itemKey>mnuItemClassifieds</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Classifieds</label>
+			<description>Classifieds</description>
+		</element>
+ 		<element>
+			<role>*</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemFAQ</itemKey>
+			<itemType>Dialog</itemType>
+			<label>FAQ</label>
+			<description>Frequenctly Asked Questions</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemDownloads</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Downloads</label>
+			<description>Download Zone</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemLinks</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Links</label>
+			<description>Related Links</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemSiteMap</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Site Map</label>
+			<description>Site Map</description>
+		</element>
+		<element>
+			<role>Anonymous</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemLogin</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Login</label>
+			<description>Member Login</description>
+		</element>
+		<element>
+			<role>Anonymous</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemNewUser</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Register</label>
+			<description>New User Registration</description>
+		</element>
+		<element>
+			<role>Anonymous</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemResetPswd</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Reset Pswd</label>
+			<description>Reset Passphrase</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemChgPswd</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Chng Pswd</label>
+			<description>Change Passphrase</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemResources</parent>
+			<itemKey>mnuItemContact</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Contact</label>
+			<description>Contact Information</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemAbout</parent>
+			<itemKey>mnuItemHistory</itemKey>
+			<itemType>Dialog</itemType>
+			<label>History</label>
+			<description>Company History</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemAbout</parent>
+			<itemKey>mnuItemCredentials</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Our Credentials</label>
+			<description>Credentials</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemAbout</parent>
+			<itemKey>mnuItemMission</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Mission</label>
+			<description>Our Mission / Philosophy</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemAbout</parent>
+			<itemKey>mnuItemPolicy</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Policy</label>
+			<description>Policy Statements</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemPolicy</parent>
+			<itemKey>mnuItemPrivacy</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Privacy</label>
+			<description>Privacy Policy</description>
+		</element>
+		<element>
+			<role>*</role>
+			<parent>mnuItemPolicy</parent>
+			<itemKey>mnuItemLegal</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Legal</label>
+			<description>Legal Statement</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemAdmin</parent>
+			<itemKey>mnuItemAirAdmin</itemKey>
+			<itemType>Dialog</itemType>
+			<label>AirAdmin</label>
+			<description>Repository Administration</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemAirAdmin</parent>
+			<itemKey>mnuItemMetadataAdmin</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Metadata</label>
+			<description>Repository Element Metadata Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemAirAdmin</parent>
+			<itemKey>mnuItemModelAdmin</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Metadata</label>
+			<description>Model Metadata Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemAirAdmin</parent>
+			<itemKey>mnuItemDbConvert</itemKey>
+			<itemType>Dialog</itemType>
+			<label>DB Convert</label>
+			<description>Convert Database</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemAdmin</parent>
+			<itemKey>mnuItemSysAdmin</itemKey>
+			<itemType>Dialog</itemType>
+			<label>SysAdmin</label>
+			<description>System Administration</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemSysAdmin</parent>
+			<itemKey>mnuItemSetOpt</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Options</label>
+			<description>Set Configuration Options</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemSysAdmin</parent>
+			<itemKey>mnuItemFilePrint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Print</label>
+			<description>Element Print</description>
+		</element>
+
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemEleClassMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Element Class Maint</label>
+			<description>Element Class Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemEleTypeMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Element Type Maint</label>
+			<description>Element Type Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemRelClassMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Rel Class Maint</label>
+			<description>Relationship Class Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemPropMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Property Maint</label>
+			<description>Element Property Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemAssocMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Assoc Maint</label>
+			<description>Element Association Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemCoordMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Coord Maint</label>
+			<description>Element Coordiation Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemPropTypeMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Property Rule Maint</label>
+			<description>Property Type Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemAssocTypeMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Assoc Rule Maint</label>
+			<description>Element Association Type Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemCoordTypeMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Coord Rule Maint</label>
+			<description>Element Coordination Type Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemPropRuleMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Property Type Maint</label>
+			<description>Property Rule Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemAssocRuleMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Assoc Type Maint</label>
+			<description>Element Association Rule Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemMetadataAdmin</parent>
+			<itemKey>mnuItemCoordRuleMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Coord Type Maint</label>
+			<description>Element Coordiation Rule Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemModelAdmin</parent>
+			<itemKey>mnuItemModelRuleMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Model Type Maint</label>
+			<description>Model Rule Maintenance</description>
+		</element>
+		<element>
+			<role>Registered</role>
+			<parent>mnuItemModelAdmin</parent>
+			<itemKey>mnuItemModelTaxMaint</itemKey>
+			<itemType>Dialog</itemType>
+			<label>Model Taxonomy Maint</label>
+			<description>Model Taxonomy</description>
+		</element>
+	</menuStructure>
+
+	<!--
+	===================================================================================
+	Detail Menu Items
+	role - defines role for which the item is applicable
+	* is 'any'
+	Anon is anonymous user, but NOT non-anonymous user
+	Registered is registered user
+	parent - defines the item parent, defines the menu hierarchy
+	Item - provides the unique menu item ID for the item
+	menuItem - provides a pointer to the menu item in the master table
+	===================================================================================
+	-->
+	<menuItems>
+		<menuItem>
+			<itemKey>mnuItemDirView</itemKey>
+			<itemType>Dialog</itemType>
+			<label>DirView</label>
+			<description>Directory View</description>
+			<itemTarget>dlgDirView</itemTarget>
+			<itemAction>Redirect</itemAction>
+		</menuItem>
+		<menuItem>
+			<itemKey>mnuItemOther</itemKey>
+			<itemType>MenuLayer</itemType>
+			<label>Other</label>
+			<description>Other Content</description>
+			<itemTarget>dlgOtherContent*</itemTarget>
+			<itemAction>Redirect</itemAction>
+		</menuItem>
+	</menuItems>
+</AF_configuration>

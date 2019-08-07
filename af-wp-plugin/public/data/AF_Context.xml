@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AF_configuration version="1.0.0">
+<!--
+    ===================================================================================
+     Copyright Architected Futures, LLC; March 19, 2008.  All rights reserved.
+     Author:   Joe Van Steen
+     Status:   Prototype
+
+     External XML managed context information
+        StdVar is the repeating group defining a "Standard variable"
+
+        Name is the name of the variable as known to the application code
+        Value is the variable translation value to be used as the replacement text for the
+             variable
+        Description is an optional text block providing comments or a description for the
+            variable or information defining its use.
+     ===================================================================================
+<Context>
+   <StdVar>
+			<Name>
+			</Name>
+			<Value>
+			</Value>
+			<Description>
+			</Description>
+		</StdVar>
+</Context>
+ -->
+<Context>
+   <StdVar>
+			<Name>sysReleaseIdent</Name>
+			<Value>AIR V1.08.90 Released 07-MAY-2008</Value>
+			<Description>Defines the release ID for the system that is published into various portions of the web site to identify the software release and configuration.</Description>
+		</StdVar>
+   <StdVar>
+			<Name>webEmailId</Name>
+			<Value>admin@architectedfutures.com</Value>
+			<Description>Defines the web e-mail contact address published into various portion of the web site. This is the general purpose contact email address</Description>
+		</StdVar>
+   <StdVar>
+			<Name>companyTitle</Name>
+			<Value>Architected Futures</Value>
+			<Description>Defines the company title published into various points in the web pages. This is a slightly less formal signature than the CompanyName variable.</Description>
+		</StdVar>
+   <StdVar>
+			<Name>webCopyright</Name>
+			<Value>Copyright (c) 2005-2008 Architected Futures, LLC</Value>
+			<Description>Defines the text of the copyright statements published into the web pages.</Description>
+		</StdVar>
+   <StdVar>
+			<Name>companyName</Name>
+			<Value>Architected Futures, LLC</Value>
+			<Description>Defines the company name published into various points in the web pages. This is the more formal, official company legal name.</Description>
+		</StdVar>
+</Context>
+</AF_configuration>

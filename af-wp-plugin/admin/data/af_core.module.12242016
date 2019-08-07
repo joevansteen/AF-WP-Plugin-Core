@@ -1,0 +1,882 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Provides the Architected Futures "core" Drupal extension facility for the support of the AF community of practice and of the AF EATS framework.
+ *
+ * This module provides:
+ *   - a token replacement and content filtering facility for AF defined tokens
+ *   - customized blocks
+ *     - a block that lists all of the enabled modules
+ *     - a list of recent post entries of selected node types
+ *     - a book "Contents" block
+ *   - a customization hook on the freelinking module to force external hooks to open in new
+ *     windows and internal links to open in the same window; and to create a link to taxonomy terms
+ *   - a customization hook for WYSIWYG editor for format of CKEditor button bars
+ *   - a facility for generating custom formatted prefix material for library books including
+ *     a "cover" page, copyright statement, warranty statement, etc.
+ */
+ 
+define('AF_CORE_VERSION', '04.06.01a');
+define('AF_CORE_BLOG_NODE_TYPE', 'article');
+define('AF_CORE_GROUP_NODE_TYPE', 'group');
+define('AF_CORE_PAGE_NODE_TYPE', 'page');
+define('AF_CORE_BOOK_NODE_TYPE', 'book');
+define('AF_CORE_POST_NODE_TYPE', 'post');
+define('AF_CORE_SUGGESTION_NODE_TYPE', 'suggestion');
+define('AF_CORE_WEBFORM_NODE_TYPE', 'webform');
+define('AF_CORE_BLOG_LIST_COUNT', 12);
+
+/**
+ * Implements hook_help().
+ *
+ * Currently just a place holder.
+ */
+function af_core_help($path, $arg) {
+  if ($path == 'admin/help#af_core') {
+    return t('Architected Futures Community of Practice - Core Support');
+  }
+}
+
+/**
+ * Implements hook_filter_info().
+ *
+ * Adds the Token filter to the text format options. The filter provides the mechanism
+ * to support filtering of source material contained within demarcation blocks [x] ... [/x]
+ * and the mechanism to process what appear to be parameterized tokens.
+ *
+ * This function installs the filter. The filter processing is implemnted by the
+ * function identified in the process callback.
+ */
+function af_core_filter_info() {
+  $filters['AFCore_filter_tokens'] = array(
+    'title' => t('AFCore content filter'),
+    'description' => t('The usage of this filter should be restricted to trusted users only as tokens with sensitive data could be exposed.'),
+    'process callback' => 'hook_filter_AFCore_process',
+    'tips callback' => 'hook_filter_AFCore_tips',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+
+/**
+ * Filter process callback for the content input filter.
+ *
+ * This is the implementation of the text filter process. Out technique is to use a single filter.
+ * All calls to filter text invoke the full set of filters in sequence. It is up to the
+ * code in each filter to determine if it's actions are required and to return an
+ * appropriate 'filtered' or 'unfiltered' result.
+ *
+ * An alternative would be to implent each of these as a separate filter, then use a
+ * switch based on filter to direct processing.
+ */
+function hook_filter_AFCore_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  $result = _AFCore_book_cover_filter($text);
+  $result = _AFCore_book_outline_filter($result);
+  $result = _AFCore_editorial_note_filter($result);
+  return $result;
+}
+
+/**
+ * Editorial Note filter
+ *
+ * Filters [editorial-note] ... [/editorisal-note] text.
+ *
+ * Provides special format wrapping of editorial notes.
+ *
+ * Todo: review the permission settings for users as applied to
+ * the various forms of restricted content. By and large, anonymous users
+ * are not allowed to view any of this content. 
+ */
+function _AFCore_editorial_note_filter($text) {
+  /* Look for filter pattern 1 */
+  
+  $roles = '';
+  $isAnonymous = FALSE;
+  $isAdministrator = FALSE;
+  $isAuthenticated = FALSE;
+      
+  global $user;
+  
+  foreach ($user->roles as $role) {
+     switch ($role) {
+        case 'anonymous user':
+           $isAnonymous = TRUE;
+           break;
+        case 'authenticated user':
+           $isAuthenticated = TRUE;
+           break;
+        case 'administrator':
+           $isAdministrator = TRUE;
+           break;
+     }
+  }
+    
+  $begin_delim = '[editorial-note]';
+  $end_delim = '[/editorial-note]';
+  $begin = strpos($text, $begin_delim);
+  if ($begin === FALSE) {
+    $result = $text;
+  }
+  else {
+    if ($begin == 0) {
+      $result = '';
+    }
+    else {
+      $result = substr($text, 0, $begin);
+    }
+//    $result .= '[found BEGIN delimiter right here]';
+    $begin += strlen($begin_delim);
+    $remainder = substr($text, $begin);
+    $end = strpos($remainder, $end_delim);
+    if ($end === FALSE) {
+      /* No trailing delimiter - abort the filter */
+      $result .= '<span class="af-error">AFCore found beginning "editorial-note" delimiter, but no matching end delimiter:</span>' . $begin_delim . $remainder;
+    } 
+    else {
+      if ($end == 0) {
+        /* Something wrong? */
+	      $result .= '<span class="af-warning">[AFCore found empty "editorial-note" here]</span>';
+      }
+      
+      $filter_data = substr($remainder, 0, $end);
+      
+      $end += strlen($end_delim);
+      $left_over = substr($remainder, $end);
+      $args = explode (";", $filter_data);
+      if ($isAuthenticated) {
+         // If user is authorized to see the content
+         $result .= '<div class="af-notes"><div class="af-editor-content">' . $filter_data . '</div></div>' . $left_over;
+      } else {
+         // else, disappear the content
+         $result .= $left_over;
+      }
+      
+      /* Try to see if we can find another one */
+  	  $result = _AFCore_editorial_note_filter($result);
+    }
+  }
+  
+  return $result;
+}
+
+/**
+ * Book Cover 'Parameterized Token' filter
+ *
+ * Provides filter to generate standard book cover content for the beginning portion
+ * of site standard library books. Cover pages (front matter) is filled in based on
+ * parameters passed to this filter. Output consists of a fancy header, copyright
+ * statements, and misc. boiler-plate.
+ */
+function _AFCore_book_cover_filter($text) {
+  /* Look for filter pattern 1 */
+  $begin = strpos($text, '[afcore:book-cover;');
+  if ($begin === FALSE) {
+    $result = $text;
+  }
+  else {
+    if ($begin == 0) {
+      $result = '';
+    }
+    else {
+      $result = substr($text, 0, $begin);
+    }
+//    $result .= '[found it right here:]';
+    $remainder = substr($text, $begin);
+    $end = strpos($remainder, ']');
+    if ($end === FALSE) {
+      /* No trailing delimiter - abort the filter */
+      $result = $text;
+    } 
+    else {
+      if ($end == 0) {
+        /* Something's very wrong! */
+        $result = 'Danger! Danger! Will Robinson! ...' . $text;
+      }
+      else {
+        $filter_data = substr($remainder, 0, $end);
+        $end++;
+        $left_over = substr($remainder, $end);
+        $args = explode (";", $filter_data);
+//        $result .= "[I'm what you get instead]" . $filter_data . $left_over;
+        $result .= _token_book_cover($args) . $left_over;
+      }
+    }
+  }
+  
+  return $result;
+}
+
+/**
+ * Book Outline 'Parameterized Token' filter
+ *
+ * Provides filter to generate a book outline for a specified book. This is used
+ * for editorial management of books in the site library.
+ */
+function _AFCore_book_outline_filter($text) {
+  /* Look for filter pattern 1 */
+  $begin = strpos($text, '[afcore:book-contents;');
+  if ($begin === FALSE) {
+    $result = $text;
+  }
+  else {
+    if ($begin == 0) {
+      $result = '';
+    }
+    else {
+      $result = substr($text, 0, $begin);
+    }
+//    $result .= '[found it right here:]';
+    $remainder = substr($text, $begin);
+    $end = strpos($remainder, ']');
+    if ($end === FALSE) {
+      /* No trailing delimiter - abort the filter */
+      $result = $text;
+    } 
+    else {
+      if ($end == 0) {
+        /* Something's very wrong! */
+        $result = 'Danger! Danger! Will Robinson! ...' . $text;
+      }
+      else {
+        $filter_data = substr($remainder, 0, $end);
+        $end++;
+        $left_over = substr($remainder, $end);
+        $args = explode (";", $filter_data);
+//        $result .= "[I'm what you get instead]" . $filter_data . $left_over;
+        if (count($args) > 1) {
+	        $result .= _token_book_contents($args[1]);
+	        }
+        else {
+	        $result .= ' *** No ID provided! *** ';
+	        }
+	      // Recursive call to process any additional books to be outlined
+	      // as part of a single node's content.  
+	      $result .= _AFCore_book_outline_filter($left_over);  
+      }
+    }
+  }
+  
+  return $result;
+}
+
+/**
+ * Filter tip callback for the token input filter.
+ */
+function hook_filter_AFCore_tips($filter, $format, $long = FALSE) {
+  if ($long) {
+    $output = t('Global and AFCore tokens will be replaced with their respective token values. The following is a list of the tokens that are available:');
+    $output .= theme('token_tree', array('click_insert' => FALSE));
+    return $output;
+  }
+  else {
+    return t('Global and AFCore tokens will be replaced with their respective token values (e.g. [site:name] or [current-page:title]).');
+  }
+}
+
+/**
+ * Returns a list of blog entries.
+ *
+ * @param $number
+ *   The number of entries to return.
+ * @return
+ *   A result set object containing the list of blog entries.     
+ */
+function get_recent_blog_list($number) {
+  // Use the database API to retrieve our data.
+  // see http://drupal.org/node/310069
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title', 'created', 'uid'))
+    ->condition('type', array(AF_CORE_BLOG_NODE_TYPE,
+                              AF_CORE_BOOK_NODE_TYPE,
+                              AF_CORE_PAGE_NODE_TYPE,
+                              AF_CORE_POST_NODE_TYPE,
+                              AF_CORE_SUGGESTION_NODE_TYPE,
+//                              AF_CORE_WEBFORM_NODE_TYPE,   webforms don't really make sense since they are generic types
+                              AF_CORE_GROUP_NODE_TYPE,
+													    ), 'IN')
+    ->condition('status', 1)
+    ->orderBY('created', 'DESC')
+    ->range(0, $number)
+    ->addTag('node_access')
+    ->execute();
+
+  return $query;
+}
+
+/**
+ * Returns expanded book contents
+ *
+ * Adapted from https://drupal.org/node/502450
+ *
+ * @param $book
+ *   The node ID of the book to be itemized
+ * @param $levels
+ *   The number of levels of depth to be returned (not used)
+ * @return
+ *   The content of the book meny tree
+ */
+function get_book_contents ($book='', $levels=0) {
+  $content = '';
+  
+  
+  if (empty($book)) {
+	  $node = menu_get_object(); // Retrieve the first node item from current router list
+  	if (isset($node->book) && !empty($node->book['bid'])) {
+	     $book = $node->book['bid'];
+	   }
+	}
+	
+  $tree = menu_tree_all_data(book_menu_name($book));
+  $data = array_shift($tree);
+  $content = drupal_render(menu_tree_output($data['below']));
+  
+  return $content;
+}
+
+/**
+ * Implements hook_block_info() to define our custom blocks.
+ */
+function af_core_block_info() {
+  $blocks = array();
+  
+  $blocks['list_modules'] = array(
+    'info' => t('Listing of the enabled modules.'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['recent_posts'] = array(
+    'info' => t('Recent blog posts (AF).'),
+  );
+  $blocks['book_contents'] = array(
+    'info' => t('Expanded Book Contents'),
+  );
+  
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view() to implement the content of our custom blocks.
+ */
+function af_core_block_view($block_name = '') {
+
+  switch ($block_name) {
+    case 'book_contents':
+      $content = get_book_contents();
+    
+      $block = array(
+        'subject' => t('Contents'),
+        'content' => $content,
+      );
+    
+      return $block;
+      break;
+      
+    case 'list_modules':
+      $list = module_list();
+    
+      $theme_args = array('items' => $list, 'type' => 'ol');
+      $content = theme('item_list', $theme_args);
+    
+      $block = array(
+        'subject' => t('Enabled Modules'),
+        'content' => $content,
+      );
+    
+      return $block;
+      break;
+      
+    case 'recent_posts':
+      $block = array(
+        'subject' => t('Recent posts.'),
+        'content' => '',
+      );
+          
+      if (user_access('access_content')) {
+        $result = get_recent_blog_list(AF_CORE_BLOG_LIST_COUNT);
+        
+        $items = array();
+        foreach ($result as $node) {
+          $items[] = array(
+            'data' => l($node->title, 'node/' . $node->nid),
+            'class' => array('node-' . $node->nid),
+          );
+        }
+        
+        if (!empty($items)) {
+          $block['content'] = theme('item_list', array(
+                                        'items' => $items));
+        }
+        else {
+          $block['content'] = t('No posts available.');
+        }
+      }
+      return $block;      
+      break;  
+  }
+}
+
+/**
+ * Implements hook_token_info() to identify token types and replacement values.
+ */
+function af_core_token_info() {
+  $type = array(
+    'name' => t('AF Core'), 
+    'description' => t('Tokens related to Architected Futures content.'), 
+  );
+
+  // Core tokens for the system.
+  $node['version'] = array(
+    'name' => t("Version ID"), 
+    'description' => t("The version ID of the platform."),
+  );
+  $node['eats-long'] = array(
+    'name' => t("Long Tool Suite link"), 
+    'description' => t("The full title of the tool suite and link to main page."),
+  );
+  $node['eats'] = array(
+    'name' => t("Tool Suite link"), 
+    'description' => t("The abbreviated title of the tool suite and link to main page."),
+  );
+  $node['jvs'] = array(
+    'name' => t("JVS Link"), 
+    'description' => t("JVS full name and link to profile page."),
+  );
+  $node['af-web'] = array(
+    'name' => t("AF Web link"), 
+    'description' => t("The title of the web site as a link to the front page of the site."),
+  );
+  $node['community'] = array(
+    'name' => t("Community Title"), 
+    'description' => t("The title of the community of practice."),
+  );
+  $node['book-cover'] = array(
+    'name' => t("Book Cover Page"), 
+    'description' => t("Standardized AF book cover page."),
+  );
+  $node['warranty'] = array(
+    'name' => t("Warranty Statement"), 
+    'description' => t("Standardized AF warranty statement."),
+  );
+  $node['license'] = array(
+    'name' => t("License Statement"), 
+    'description' => t("Standardized AF license statement."),
+  );
+  $node['copyright'] = array(
+    'name' => t("Copyright Statement"), 
+    'description' => t("Current AF copyright statement."),
+  );
+  $node['book-contents'] = array(
+    'name' => t("Book Contents"), 
+    'description' => t("Book Hierarchical Contents."),
+  );
+
+  return array(
+    'types' => array('afcore' => $type), 
+    'tokens' => array('afcore' => $node),
+  );
+}
+
+/**
+ * Implements hook_tokens() to provide token substitutions.
+ */
+function af_core_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $url_options = array('absolute' => TRUE);
+  if (isset($options['language'])) {
+    $url_options['language'] = $options['language'];
+    $language_code = $options['language']->language;
+  }
+  else {
+    $language_code = NULL;
+  }
+  $sanitize = !empty($options['sanitize']);
+  $replacements = array();
+
+  if ($type == 'afcore') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'version':
+          $replacements[$original] = 'v' . AF_CORE_VERSION;
+          break;
+
+        case 'eats-long':
+          $replacements[$original] = _token_eats_long();
+          break;
+
+        case 'eats':
+          $replacements[$original] = _token_eats();
+          break;
+
+        case 'jvs':
+          $replacements[$original] = _token_jvs();
+          break;
+
+        case 'af-web':
+          $site_name = variable_get('site_name', 'Drupal');
+          $site_name = $sanitize ? check_plain($site_name) : $site_name;
+          $site_url = preg_replace(array('!^https?://!', '!/$!'), '', url('<front>', $url_options));
+          $replacements[$original] = '<a href="http://' . $site_url . '/" target="_blank">' . $site_name . '</a>';
+          break;
+
+        case 'community':
+          $replacements[$original] = _token_community();
+          break;
+
+        case 'copyright':
+          $replacements[$original] = _token_copyright();
+          break;
+
+        case 'license':
+          $replacements[$original] = _token_license();
+          break;
+
+        case 'warranty':
+          $replacements[$original] = _token_warranty();
+          break;
+
+        case 'book-contents':
+          $replacements[$original] = _token_book_contents('');
+          break;
+
+        default:  
+          $replacements[$original] = 'Error: Not Found! name=' .$name . ' original=' . $original;
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+function _token_jvs() {
+  return '<span class="jvs-link"><a href="http://www.linkedin.com/pub/joe-van-steen/13/aa4/a7b/" target="_blank" class="ext-link" rel="identificationURL">Joe Van Steen</a></span>';
+}
+function _token_eats() {
+  return '<em>EATS</em>';
+}
+function _token_eats_long() {
+  return '<em>Element Architecture Tool Suite</em> (EATS)';
+}
+function _token_community() {
+  return 'Architected Futures&trade; Community of Practice (AFCoP)';
+}
+function _token_copyright() {
+  return '<span class="af-copyright">Copyright &copy; 2013-2017 ' . _token_jvs() . ', All Rights Reserved</span>';
+}
+function _token_license() {
+  return '<div class="af-content-license"><p><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="license"><img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" style="border-width:0;"></a>architectedfutures.net web site by <a href="http://www.linkedin.com/pub/joe-van-steen/13/aa4/a7b/" target="_blank" rel="cc:attributionURL">Joe Van Steen</a> is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="license">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a href="http://architectedfutures.net/contact/" target="_blank" rel="cc:morePermissions">http://architectedfutures.net/contact/</a>.</p><p>For information on how to mark content with an appropriate attribution please see the <a href="http://wiki.creativecommons.org/Marking/Users" target="_blank" title="Creative Commons Best Practices for attributions">Creative Commons Best Practices for attributions</a> page on the Creative Commons web site.</p></div>';
+}
+function _token_warranty() {
+  return '<div class="af-content-warranty">THE SITE AND THE MATERIALS ARE PROVIDED ON AN AS IS BASIS, WITHOUT ANY WARRANTY WHATSOEVER. WITHOUT LIMITING THE GENERALITY OF THE FOREGOING, ARCHITECTED FUTURES AND JOE VAN STEEN HEREBY DISCLAIMS ALL WARRANTIES, EXPRESS, IMPLIED, STATUTORY, ARISING FROM COURSE OF DEALING, OR OTHERWISE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE OR NON-INFRINGEMENT OF THIRD PARTY RIGHTS. THE SITE AND THE MATERIALS (INCLUDING WITHOUT LIMITATION THE FORMS) MAY BE INCORRECT, OUT OF DATE, INAPPROPRIATE FOR ANY PARTICULAR TRANSACTION, MAY CONTAIN "BUGS," ERRORS AND DEFECTS, AND MAY NOT OPERATE ERROR FREE OR PRODUCE RESULTS AS EXPECTED. YOU AGREE TO ASSUME SUCH RISKS.</div>';
+}
+function _token_book_contents($args) {
+  return '<div class="af-book-contents">' . get_book_contents($args) . '</div>';
+}
+function _token_book_cover($args) {
+  $debug = "";
+  $series = "";
+  $copyrights = array();
+  $document = array();
+   
+  $count = count($args);
+  /** Start with 1, because [0] was 'book-cover' */
+  for ($i=1; $i < $count; $i++) {
+     switch ($i) {
+       case 1:
+         $series = $args[$i];
+         break;
+       case 2:
+         $parm = $args[$i];
+         $copyrights = explode (",", $parm);
+         for ($j = 0; $j < count($copyrights); $j++) {
+			     $debug .= 'copyright = "' . $copyrights[$j] . '" ';
+			   }
+         break;
+       case 3:
+         $parm = $args[$i];
+         $document = explode (",", $parm);
+         for ($j = 0; $j < count($document); $j++) {
+			     $debug .= 'document = "' . $document[$j] . '" ';
+			   }
+         break;    
+     }
+  }
+  
+  $results = "";
+  $results .= '<div class="af-title-page">';
+  if (!empty($series)) {
+    $results .= '<div class="af-book-series">';
+    switch ($series) {
+       case 'eats':
+       case 'EATS':
+         $results .= _token_eats_long() . '<br />Tool Suite Components';
+         break;
+       case 'eats-infrastructure':
+         $results .= _token_eats_long() . '<br />Tool Suite Infrastructure';
+         break;
+       case 'eats-blueprint':
+         $results .= _token_eats_long() . '<br />Architecture Blueprint';
+         break;
+       case 'tech-ref':
+         $results .= _token_eats_long() . '<br />Technology Reference';
+         break;
+       case 'admin':
+         $results .= 'Architected Futures&trade;<br />Administration';
+         break;
+       default:
+         $results .= $series;
+         break;
+    }
+    $results .= '</div>';
+  }
+  $results .= '<div class="af-book-title">[node:title]</div>';
+  $results .= '<div class="af-title-block">';
+  $results .= '<div class="af-author">Original Author: <span class="af-author">[node:author]</span></div>';
+  $results .= '<div class="af-created">Created: <span class="af-created">[node:created:long]</span></div>';
+  $results .= '<div class="af-changed">Last Changed: <span class="af-changed">[node:changed:long]</span></div>';
+  if (count($document) > 0) {
+    $results .= '<div class="af-doc-id">Document ID: <span class="af-doc-id">' . $document[0] . '</span></div>';
+    if (count($document) > 1) {            
+      $results .= '<div class="af-version">Version: <span class="af-version">' . $document[1] . '.[node:vid]</span></div>';
+    }
+  }
+  $results .= '</div>';
+  
+  $results .= '<div class="af-copyright">';
+  if (count($copyrights) > 0) {
+    for ($i = 0; $i < count($copyrights); $i++) {
+      switch ($copyrights[$i]) {
+        case 'af2006':
+          $results .= '<img alt="Copyright &copy; 2006-2009 Architected Futures, LLC" src="/sites/default/files/pictures/legal/copyright2006af.png" style="width: 166px; height: 15px; ">';
+          break;
+        case 'af2007':
+          $results .= '<img alt="Copyright &copy; 2007-2009 Architected Futures, LLC" src="/sites/default/files/pictures/legal/copyright2007af.png" style="width: 166px; height: 15px; ">';
+          break;
+        case 'af2008':
+          $results .= '<img alt="Copyright &copy; 2008-2009 Architected Futures, LLC" src="/sites/default/files/pictures/legal/copyright2008af.png" style="width: 166px; height: 15px; ">';
+          break;
+        case 'af2009':
+          $results .= '<img alt="Copyright &copy; 2009 Architected Futures, LLC" src="/sites/default/files/pictures/legal/copyright2009af.png" style="width: 166px; height: 15px; ">';
+          break;
+        case 'af2005-10':
+          $results .= '<img alt="Copyright &copy; 2005-2010 Architected Futures, LLC" src="/sites/default/files/pictures/legal/copyright2005-2009af.png" style="width: 121px; height: 23px; ">';
+          break;
+        case 'jvs2010':
+          $results .= '<img alt="Copyright &copy; 2010-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2010jvs.png" style="width: 131px; height: 15px; ">';
+          break;
+        case 'jvs2011':
+          $results .= '<img alt="Copyright &copy; 2011-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2011jvs.png" style="width: 131px; height: 15px; ">';
+          break;
+        case 'jvs2012':
+          $results .= '<img alt="Copyright &copy; 2012-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2012jvs.png" style="width: 131px; height: 15px; ">';
+          break;
+        case 'jvs2013':
+          $results .= '<img alt="Copyright &copy; 2013-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2013jvs.png" style="width: 131px; height: 15px; ">';
+          break;
+        case 'jvs2010-13':
+          $results .= '<img alt="Copyright &copy; 2010-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2010-2013jvs.png" style="width: 120px; height: 22px; ">';
+          break;
+        case 'jvs2014':
+          $results .= '<img alt="Copyright &copy; 2014-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2014jvs.png" style="width: 131px; height: 15px; ">';
+          break;
+        case 'jvs2010-14':
+          $results .= '<img alt="Copyright &copy; 2010-2017 Joe Van Steen" src="/sites/default/files/pictures/legal/copyright2010-2014jvs.png" style="width: 120px; height: 22px; ">';
+          break;
+        default:
+          $results .= 'Copyright &copy; ' . $copyright[$i];
+          break;
+      }
+      $results .= '<br />';
+    }
+    $results .= 'All rights reserved.';
+  }
+  else {
+    $results .= _token_copyright();
+  }
+  $results .= '<br />This document is intended for use by members of the [afcore:community] and the developers and stakeholders of related systems that may desire to interface with [afcore:af-web] technology or products. Use of this document is subject to the licensing terms described below.</div>';
+  $results .= _token_license();
+  $results .= _token_warranty();
+  $results .= '</div>';
+  return $results;
+}
+
+/**
+ * Implements hook_freelink_alter().
+ * Modifies freelinking module processing to include standard AF attributes:
+ *   - force external linked content to open in a new window.
+ *   - force internal linked content to open in the same window.
+ */
+function af_core_freelink_alter(&$link, $context) {
+  if (sizeof($link) > 1) {
+	  // Is this an internal or external link?
+  	$parts = parse_url($link[1]);
+	  if (isset($parts['host']) && $parts['host'] != $_SERVER['SERVER_NAME']) {
+		  // standard AF attributes - external links open a new window
+		  $link[2]['attributes']['target'] = '_blank';
+	  }
+	  else {
+		  // standard AF attributes - internal links open in same window
+		  $link[2]['attributes']['target'] = '_self';
+	  }
+	}
+
+  return $link;
+}
+
+/**
+ * Implements hook_freelinking().
+ * Extends freelinking module processing to include links to taxonomy items.
+ */
+function af_core_freelinking() {
+  $freelinking['term'] = array(
+    'indicator' => '/term|tid|termid/',
+    'tip' => t('Link to a taxonomy term by name or tid.'),
+    'callback' => 'af_core_freelinking_term_callback',
+    'failover' => array('search'),
+  );
+  return $freelinking;
+}
+
+/**
+ * Builds a link to a taxonomy term
+ *
+ * @return
+ *   array to build the link
+ */
+function af_core_freelinking_term_callback($target, $plugin) {
+  if (is_numeric($target['dest'])) {
+    $term = taxonomy_term_load($target['dest']);
+  }
+  else {
+	  // The following returns an array indexed by tid
+  	// we only want one of these
+  	$terms = taxonomy_get_term_by_name($target['dest']);
+    $term = array_shift($terms);
+  }
+
+  if (!$term) {
+    return array(
+      'failover' => variable_get('freelinking_user_failover', 'error'),
+      'message' => t('Term "%term" not found', array('%term' => $target['dest'])),
+    );
+  }
+
+  $title = $target['text'] ? $target['text'] : $term->name;
+  $url = 'taxonomy/term/' . $term->tid;
+  $tooltip = $target['tooltip'] ? $target['tooltip'] : t('View term definition.');
+
+  return array($title, $url, array(
+      'attributes' => array(
+        'title' => $tooltip,
+      ),
+    ));
+}
+
+/**
+ * Implements hook_wysiwyg_editor_settings_alter
+ * Modifies wysiwyg abstraction module to format CKEditor buttons into logical groups
+ * and break the groups into multiple rows. This should be a temporary fix until a new
+ * version of the WYSIWYG module is released with this code included. For further
+ * information see: http://drupal.org/node/829266
+ */
+function af_core_wysiwyg_editor_settings_alter(&$settings, $context) {
+
+  if ($context['profile']->editor == 'ckeditor') {
+
+    // The layout we'd want to use if all buttons were enabled.
+    // This example uses all buttons on one row, but separate them into groups that will wrap as one.
+    // Multiple
+    $toolbar = array(
+      array( // Row
+        array('Source',), // Group
+        array('Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',),
+        array('Undo', 'Redo',),
+        array('Bold', 'Italic', 'Underline', 'Strike', 'Superscript', 'Subscript',), // Group
+        array('BulletedList', 'NumberedList', 'Outdent', 'Indent',),
+        array('JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock',),
+        array('Link', 'Unlink', 'Anchor',),
+        array('Maximize', 'SpellChecker', 'Scayt',),
+        array('Format', 'Font', 'FontSize', 'Styles',),
+        array('Blockquote', 'HorizontalRule',),
+        array('TextColor', 'BGColor', 'RemoveFormat',),
+        array('ShowBlocks', 'SpecialChar',),
+        array('SelectAll', 'Find', 'Replace',),
+        array('Image', 'Flash', 'Smiley', 'Table', 'CreateDiv',),
+      ),
+    ); 
+
+    // Use the original toobar definition as a lookup list.
+    $original_toolbar = $settings['toolbar'][0];
+
+    // Loop through rows.
+    $r_key = 0;
+    while ($r_key < count($toolbar)) {
+      $row = &$toolbar[$r_key];
+
+      // Loop through groups.
+      $g_key = 0;
+      while ($g_key < count($row)) {
+        $group = &$row[$g_key];
+        if (is_array($group)) { // This check isn't really needed for CKEditor.
+
+          // Loop through buttons.
+          $i_key = 0;
+          while ($i_key < count($group)) {
+            $item = &$group[$i_key];
+            
+            // Check if button was enabled.
+            if (($found_key = array_search($item, $original_toolbar)) !== FALSE) {
+            
+              // Unset enabled button from original layout. Those left were possibly added by 3rd party plugins after our layout was created and need to be appended to the final toolbar so they won't just disappear.
+              unset($original_toolbar[$found_key]);
+            }
+            else {
+            
+              //  Cut out disabled button from our custom toolbar layout.
+              $cut =array_splice($toolbar[$r_key][$g_key], $i_key, 1);
+            
+              // Loop through the same button index again since the array was reindexed.
+              $i_key -= 1;
+            }
+            $i_key += 1;
+          }
+        
+          // Remove empty groups.
+          if (count($group) == 0) {
+            array_splice($toolbar[$r_key], $g_key, 1);
+        
+            // Loop through the same group index again since the array was reindexed.
+            $g_key -= 1;
+          }
+        }
+        $g_key += 1;
+      }
+      $r_key += 1;
+    }
+    
+    // Any buttons left in the original toolbar were not in our custom layout, append them in a new group in the last row.
+    if (count($original_toolbar) > 0) {
+      $last_row = count($toolbar) -1;
+      $extra_group = array();
+      foreach ($original_toolbar as $item) {
+        $extra_group[] = $item;
+      }
+      array_push($toolbar[$last_row], $extra_group);
+    }
+
+    // Add groups to a single array and delimit rows with slashes.
+    $joined_toolbar = array();
+    foreach ($toolbar as $row) {
+      foreach($row as $grp){
+        $joined_toolbar[] = $grp;
+      }
+      $joined_toolbar[] = '/';
+    }
+
+    // Remove the last empty row.
+    array_pop($joined_toolbar);
+    
+    // Replace the old toolbar with our new shiny one.
+    $settings['toolbar'] = $joined_toolbar;
+  }
+}
